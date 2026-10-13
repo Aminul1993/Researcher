@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Run a supervised team of AI agents on any task and follow each contribution as it happens.">
+  <title>Researcher</title>
+  <link rel="icon" href="data:,">
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+"
+        crossorigin="anonymous">
+  <link id="hljs-theme-light" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+        integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L"
+        crossorigin="anonymous">
+  <link id="hljs-theme-dark" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+        integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH"
+        crossorigin="anonymous" disabled>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  {# Loaded in <head> so the saved theme is applied before first paint. #}
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"
+          integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi"
+          crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"
+          integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a"
+          crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp"
+          crossorigin="anonymous"></script>
+</head>
+<body data-run-url="{{ url_for('main.run') }}"
+      data-stream-url="{{ url_for('main.stream') }}">
+
+<a class="visually-hidden-focusable skip-link" href="#task-input">Skip to task</a>
+
+<nav class="navbar app-navbar sticky-top border-bottom">
+  <div class="container-xl">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('main.index') }}">
+      <span class="brand-mark" aria-hidden="true"><i class="bi bi-diagram-3-fill"></i></span>
+      <span class="fw-semibold">Researcher</span>
+    </a>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge model-badge d-none d-sm-inline-flex align-items-center gap-1"
+            title="Each agent runs on the model suited to its skill. Fallback model: {{ model }}">
+        <i class="bi bi-cpu" aria-hidden="true"></i>Model per role
+      </span>
+      <button id="theme-toggle" class="btn btn-sm btn-outline-secondary" type="button"
+              aria-label="Switch to dark mode" title="Switch to dark mode">
+        <i class="bi bi-moon-stars" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="container-xl py-4">
+  <div class="row g-4">
+
+    {# ---------------- Task panel ---------------- #}
+    <div class="col-12 col-lg-4">
+      <section class="card panel-card panel-sticky" aria-labelledby="task-heading">
+        <div class="card-body p-3 p-md-4">
+          <form id="task-form" novalidate>
+            <h1 id="task-heading" class="panel-title">
+              <label for="task-input">What should the team work on?</label>
+            </h1>
+            <textarea id="task-input" class="form-control task-input" rows="6"
+                      maxlength="{{ max_task_length }}" required
+                      aria-describedby="task-help task-error"
+                      placeholder="Describe the task in plain language…"></textarea>
+            <div id="task-error" class="invalid-feedback">Please describe a task first.</div>
+            <div id="task-help" class="d-flex align-items-center justify-content-between gap-2 form-text">
+              <button id="example-btn" type="button" class="btn btn-link btn-sm p-0 text-decoration-none">
+                <i class="bi bi-lightbulb" aria-hidden="true"></i> Try an example
+              </button>
+              <span>
+                <span class="d-none d-md-inline"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run ·</span>
+                <span id="char-count">0 / {{ max_task_length }}</span>
+              </span>
+            </div>
+
+            <div class="form-check form-switch mt-3">
+              <input class="form-check-input" type="checkbox" role="switch" id="stream-toggle" checked>
+              <label class="form-check-label" for="stream-toggle">Stream responses live</label>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <button id="run-btn" type="submit" class="btn btn-primary flex-grow-1">
+                <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+                <i class="bi bi-play-fill btn-icon" aria-hidden="true"></i>
+                <span class="btn-label">Run workflow</span>
+              </button>
+              <button id="stop-btn" type="button" class="btn btn-outline-danger d-none">
+                <i class="bi bi-stop-fill" aria-hidden="true"></i> Stop
+              </button>
+              <button id="clear-btn" type="button" class="btn btn-outline-secondary">
+                <i class="bi bi-eraser" aria-hidden="true"></i> Clear
+              </button>
+            </div>
+          </form>
+
+          <hr class="my-4">
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h2 class="section-label mb-0">Team</h2>
+            <span id="team-badge" class="badge rounded-pill team-badge d-none"></span>
+          </div>
+          <ul id="agent-roster" class="roster">
+            <li class="roster-item agent-supervisor" data-agent="Supervisor"
+                data-color-class="agent-supervisor" data-icon="bi-diagram-3">
+              <span class="agent-avatar"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
+              <span class="roster-text">
+                <span class="roster-name">Supervisor</span>
+                <span class="roster-role">Designs the team and routes work between agents.</span>
+                <span class="roster-model">
+                  <i class="bi bi-cpu" aria-hidden="true"></i>
+                  <span class="roster-model-name">{{ supervisor_model }}</span>
+                </span>
+              </span>
+              <span class="roster-status">Idle</span>
+            </li>
+          </ul>
+          <p id="roster-hint" class="roster-hint">
+            <i class="bi bi-magic" aria-hidden="true"></i>
+            Up to {{ max_agents }} specialist agents are designed for each task when you run it.
+          </p>
+
+          <div class="status-bar" aria-live="polite">
+            <span id="status-text" class="status-text">Ready.</span>
+            <span id="status-timer" class="status-timer"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {# ---------------- Results ---------------- #}
+    <div id="results" class="col-12 col-lg-8">
+      <div id="error-alert" class="alert alert-danger d-none d-flex align-items-start gap-2" role="alert">
+        <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1" aria-hidden="true"></i>
+        <div class="flex-grow-1">
+          <strong class="d-block">The workflow could not finish</strong>
+          <span id="error-message"></span>
+        </div>
+        <button id="error-close" type="button" class="btn-close" aria-label="Dismiss error"></button>
+      </div>
+
+      <section id="empty-state" class="empty-state">
+        <i class="bi bi-people" aria-hidden="true"></i>
+        <h2 class="h5 mt-3">Your agent team is ready</h2>
+        <p class="mb-0">
+          Describe a task and run the workflow. A team of specialists is designed
+          for it, the supervisor routes work between them, and each contribution
+          appears here in order, followed by the final answer.
+        </p>
+      </section>
+
+      <section id="steps-section" class="d-none" aria-labelledby="steps-heading">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 id="steps-heading" class="section-label mb-0">Agent contributions</h2>
+          <span id="step-count" class="badge rounded-pill text-bg-secondary"></span>
+        </div>
+        <ol id="steps" class="timeline"></ol>
+      </section>
+
+      <div id="working-indicator" class="working-indicator d-none" role="status">
+        <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+        <span id="working-label">Working…</span>
+      </div>
+
+      <section id="final-section" class="card final-card d-none" aria-labelledby="final-heading">
+        <div class="card-header d-flex align-items-center justify-content-between gap-2">
+          <h2 id="final-heading" class="h6 mb-0 d-flex align-items-center gap-2">
+            <i class="bi bi-stars" aria-hidden="true"></i> Final answer
+            <span id="final-model" class="final-model"></span>
+          </h2>
+          <button id="copy-btn" type="button" class="btn btn-sm btn-success" disabled>
+            <i class="bi bi-clipboard" aria-hidden="true"></i>
+            <span class="copy-label">Copy</span>
+          </button>
+        </div>
+        <div id="final-output" class="card-body markdown-body"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="container-xl pb-4 small text-body-secondary">
+  Powered by LangGraph and Ollama.
+</footer>
+
+<template id="roster-item-template">
+  <li class="roster-item roster-item-agent">
+    <span class="agent-avatar"><i class="bi" aria-hidden="true"></i></span>
+    <span class="roster-text">
+      <span class="roster-name"></span>
+      <span class="roster-role"></span>
+      <span class="roster-model">
+        <i class="bi bi-cpu" aria-hidden="true"></i>
+        <span class="roster-model-name"></span>
+      </span>
+    </span>
+    <span class="roster-status">Idle</span>
+  </li>
+</template>
+
+<template id="step-template">
+  <li class="timeline-item">
+    <article class="card step-card">
+      <header class="card-header step-header">
+        <span class="agent-avatar"><i class="bi" aria-hidden="true"></i></span>
+        <div class="step-heading">
+          <h3 class="step-agent"></h3>
+          <span class="step-meta"></span>
+        </div>
+        <button type="button" class="btn btn-sm step-toggle" aria-expanded="true" aria-label="Collapse step">
+          <i class="bi bi-chevron-up" aria-hidden="true"></i>
+        </button>
+      </header>
+      <div class="card-body step-body">
+        <p class="routing-note">
+          <i class="bi bi-signpost-split" aria-hidden="true"></i>
+          <span></span>
+        </p>
+        <div class="markdown-body"></div>
+      </div>
+    </article>
+  </li>
+</template>
+
+</body>
+</html>
