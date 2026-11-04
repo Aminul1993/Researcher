@@ -113,7 +113,7 @@
 
           <div class="d-flex align-items-center justify-content-between mb-2">
             <h2 class="section-label mb-0">Team</h2>
-            <span id="team-badge" class="badge rounded-pill team-badge d-none"></span>
+            <span id="team-badge" class="badge rounded-pill meta-badge d-none"></span>
           </div>
           <ul id="agent-roster" class="roster">
             <li class="roster-item agent-supervisor" data-agent="Supervisor"
@@ -135,9 +135,10 @@
             Up to {{ max_agents }} specialist agents are designed for each task when you run it.
           </p>
 
-          <div class="status-bar" aria-live="polite">
-            <span id="status-text" class="status-text">Ready.</span>
-            <span id="status-timer" class="status-timer"></span>
+          {# Only the text is a live region; the timer would be announced every second. #}
+          <div class="status-bar">
+            <span id="status-text" class="status-text" role="status">Ready.</span>
+            <span id="status-timer" class="status-timer" role="timer"></span>
           </div>
         </div>
       </section>
@@ -167,12 +168,13 @@
       <section id="steps-section" class="d-none" aria-labelledby="steps-heading">
         <div class="d-flex align-items-center justify-content-between mb-3">
           <h2 id="steps-heading" class="section-label mb-0">Agent contributions</h2>
-          <span id="step-count" class="badge rounded-pill text-bg-secondary"></span>
+          <span id="step-count" class="badge rounded-pill meta-badge"></span>
         </div>
         <ol id="steps" class="timeline"></ol>
       </section>
 
-      <div id="working-indicator" class="working-indicator d-none" role="status">
+      {# Not a live region: #status-text already announces each change. #}
+      <div id="working-indicator" class="working-indicator d-none">
         <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
         <span id="working-label">Working…</span>
       </div>

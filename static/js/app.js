@@ -214,9 +214,9 @@
     return plural(count, 'reply');
   }
 
-  /** Clear any "working" highlight, keeping each agent's reply count. */
+  /** Clear in-progress statuses such as "Working…" or "Waiting", keeping reply counts. */
   function settleRoster() {
-    els.roster.querySelectorAll('.roster-item.is-active').forEach((item) => {
+    els.roster.querySelectorAll('.roster-item:not(.is-done)').forEach((item) => {
       const agent = item.dataset.agent;
       if (state.agentCounts.has(agent)) {
         setRosterStatus(agent, 'done', contributionLabel(agent));
@@ -342,7 +342,11 @@
       ? `Step ${step.step} · ${step.model}`
       : `Step ${step.step}`;
     item.querySelector('.step-body').id = bodyId;
-    item.querySelector('.step-toggle').setAttribute('aria-controls', bodyId);
+    const toggle = item.querySelector('.step-toggle');
+    toggle.setAttribute('aria-controls', bodyId);
+    // Name each toggle, so a screen reader's list of buttons tells them apart.
+    toggle.dataset.stepName = `step ${step.step}, ${step.agent}`;
+    toggle.setAttribute('aria-label', `Collapse ${toggle.dataset.stepName}`);
 
     const note = item.querySelector('.routing-note');
     if (step.reason) {
@@ -709,7 +713,10 @@
     const card = button.closest('.step-card');
     const collapsed = card.classList.toggle('is-collapsed');
     button.setAttribute('aria-expanded', String(!collapsed));
-    button.setAttribute('aria-label', collapsed ? 'Expand step' : 'Collapse step');
+    button.setAttribute(
+      'aria-label',
+      `${collapsed ? 'Expand' : 'Collapse'} ${button.dataset.stepName}`
+    );
     button.querySelector('i').className = collapsed
       ? 'bi bi-chevron-down'
       : 'bi bi-chevron-up';
