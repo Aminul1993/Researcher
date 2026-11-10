@@ -15,7 +15,7 @@ The implementation is split across the modules of the ``agents`` package:
     errors     client-safe exceptions
     schemas    graph state, API records and structured-output schemas
     messages   reading model replies and presenting them to models
-    models     Ollama clients and falling back to the default model
+    models     Groq clients and falling back to the default model
     team       designing the team and each agent's skill
     routing    the supervisor and its step and time budgets
     graph      agent and finalizer nodes, and the graph builder
@@ -29,7 +29,7 @@ This module re-exports the public API, so ``from agents.workflow import
 import logging
 
 from .config import (
-    DEFAULT_HOST,
+    DEFAULT_BASE_URL,
     DEFAULT_MODEL,
     DEFAULT_ROLE_MODELS,
     FINALIZER,
@@ -53,8 +53,8 @@ from .config import (
     SUPERVISOR,
     SUPERVISOR_EXCERPT_CHARS,
     Settings,
+    get_groq_base_url,
     get_model_name,
-    get_ollama_host,
     get_role_model_name,
     get_role_models,
     get_run_time_budget,
@@ -102,7 +102,7 @@ from .telemetry import RunIdFilter, RunTelemetry, new_run_id
 logger = logging.getLogger("agents")
 
 __all__ = [
-    "DEFAULT_HOST",
+    "DEFAULT_BASE_URL",
     "DEFAULT_MODEL",
     "DEFAULT_ROLE_MODELS",
     "FALLBACK_AGENT_REGISTRY",
@@ -152,9 +152,9 @@ __all__ = [
     "create_supervisor",
     "create_team_designer",
     "generate_agent_registry",
+    "get_groq_base_url",
     "get_llm",
     "get_model_name",
-    "get_ollama_host",
     "get_role_llm",
     "get_role_model_name",
     "get_role_models",

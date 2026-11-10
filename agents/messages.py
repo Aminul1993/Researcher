@@ -55,10 +55,11 @@ def as_transcript(
 ) -> list[BaseMessage]:
     """Rewrite agent replies as attributed user turns for the model.
 
-    Ollama's chat API drops the per-message ``name`` field, so without this
-    the model could not tell which agent wrote which reply. Presenting the
-    replies as user turns also keeps the conversation ending on a user
-    message, which Ollama would otherwise treat as a reply to continue.
+    Chat APIs don't reliably show the model each message's ``name`` field,
+    so without this the model could not tell which agent wrote which
+    reply. Presenting the replies as user turns also keeps the
+    conversation ending on a user message, which some models would
+    otherwise treat as a reply to continue.
 
     With ``excerpt_chars``, each reply is shortened to that many characters
     from its start and end.

@@ -8,7 +8,7 @@ from agents import workflow
 from tests.fakes import ScriptedChatModel
 
 # Settings that would otherwise leak in from the developer's shell or .env.
-_ENV_PREFIXES = ("OLLAMA_", "APP_")
+_ENV_PREFIXES = ("GROQ_", "APP_")
 _ENV_NAMES = {
     "MAX_CONCURRENT_RUNS",
     "RUN_TIME_BUDGET_SECONDS",

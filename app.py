@@ -541,7 +541,7 @@ def create_app(config: Mapping[str, Any] | None = None) -> Flask:
     if not app.config["AUTH_PASSWORD"]:
         logger.warning(
             "Login is off because APP_PASSWORD is not set; anyone who can "
-            "reach this server can run workflows on your Ollama key."
+            "reach this server can run workflows on your Groq key."
         )
     logger.info(
         "Application ready (model=%s, max concurrent runs=%d)",

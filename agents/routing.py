@@ -123,7 +123,7 @@ def _parse_routing(
     if choice is None:
         raise WorkflowError(
             "The supervisor returned an invalid routing decision. Try again "
-            "or choose a different OLLAMA_MODEL_SUPERVISOR.",
+            "or choose a different GROQ_MODEL_SUPERVISOR.",
             502,
         )
     logger.warning("Supervisor replied in prose; routing to %s", choice)

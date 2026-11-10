@@ -5,17 +5,17 @@ import time
 from collections.abc import Callable, Generator, Mapping
 
 import httpx
+from groq import APIConnectionError, APIStatusError, APITimeoutError
 from langchain_core.exceptions import OutputParserException
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langgraph.errors import GraphRecursionError
-from ollama import ResponseError
 
 from .config import (
     FINALIZER,
     RECURSION_LIMIT,
     SUPERVISOR,
-    get_ollama_host,
+    get_groq_base_url,
     get_role_model_name,
     get_run_time_budget,
     orchestration_models,
@@ -43,6 +43,15 @@ from .telemetry import RunTelemetry, new_run_id, run_context
 logger = logging.getLogger(__name__)
 
 
+def _groq_error_detail(exc: APIStatusError) -> str:
+    """Return Groq's own error message rather than the raw response body."""
+    body = exc.body
+    error = body.get("error", body) if isinstance(body, dict) else None
+    if isinstance(error, dict) and error.get("message"):
+        return str(error["message"])
+    return exc.message
+
+
 def _to_workflow_error(exc: Exception) -> WorkflowError:
     """Translate a low-level failure into a client-safe WorkflowError."""
     if isinstance(exc, GraphRecursionError):
@@ -51,39 +60,47 @@ def _to_workflow_error(exc: Exception) -> WorkflowError:
             "Try a more specific task.",
             422,
         )
-    if isinstance(exc, ResponseError):
+    if isinstance(exc, APIStatusError):
+        detail = _groq_error_detail(exc)
         if exc.status_code == 401:
             return WorkflowError(
-                "Ollama rejected the API key. Check OLLAMA_API_KEY in .env.",
+                "Groq rejected the API key. Check GROQ_API_KEY in .env.",
                 502,
             )
-        if exc.status_code in (402, 403):
+        if exc.status_code == 403:
             return WorkflowError(
-                f"A configured model is not available on your Ollama plan "
-                f"({exc.error}). Choose other models in .env.",
+                f"A configured model is not available to your Groq account "
+                f"({detail}). Choose other models in .env.",
                 502,
             )
         if exc.status_code == 404:
             return WorkflowError(
-                f"A configured model was not found on {get_ollama_host()}. "
-                "Check the OLLAMA_MODEL settings in .env.",
+                f"A configured model was not found on {get_groq_base_url()}. "
+                "Check the GROQ_MODEL settings in .env.",
                 502,
             )
+        if exc.status_code == 429:
+            return WorkflowError(
+                f"Groq's rate limit was reached ({detail}). Wait a minute "
+                "and try again, or choose other models in .env.",
+                429,
+            )
         return WorkflowError(
-            f"Ollama returned an error ({exc.status_code}): {exc.error}", 502
+            f"Groq returned an error ({exc.status_code}): {detail}", 502
         )
-    if isinstance(exc, httpx.TimeoutException):
+    # APITimeoutError is a kind of APIConnectionError, so it comes first.
+    if isinstance(exc, (APITimeoutError, httpx.TimeoutException)):
         return WorkflowError(
             "The model took too long to respond. Please try again.", 504
         )
-    if isinstance(exc, (ConnectionError, httpx.HTTPError)):
+    if isinstance(exc, (APIConnectionError, ConnectionError, httpx.HTTPError)):
         return WorkflowError(
-            f"Could not connect to Ollama at {get_ollama_host()}.", 502
+            f"Could not connect to Groq at {get_groq_base_url()}.", 502
         )
     if isinstance(exc, OutputParserException):
         return WorkflowError(
             "The model returned a malformed routing decision. Try again or "
-            "choose a different OLLAMA_MODEL_SUPERVISOR.",
+            "choose a different GROQ_MODEL_SUPERVISOR.",
             502,
         )
     return WorkflowError(
@@ -111,7 +128,7 @@ def stream_workflow(
         agent_registry: A fixed team to use. When omitted, a team is
             generated from the task.
         llm: Use this one chat model for every role instead of the
-            configured per-role Ollama models.
+            configured per-role Groq models.
         run_id: Tags this run's log records. A new ID is generated when
             omitted.
         time_budget: Seconds before the supervisor stops routing. Defaults

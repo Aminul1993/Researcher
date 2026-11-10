@@ -1,9 +1,11 @@
-"""Offline stand-ins for the Ollama chat models used by the workflow."""
+"""Offline stand-ins for the Groq chat models used by the workflow."""
 
 import threading
 from collections.abc import Sequence
 from typing import Any
 
+import httpx
+from groq import APIStatusError
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage, BaseMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
@@ -20,6 +22,26 @@ TEAM_CALL = "TeamSchema"
 ROUTER_CALL = "RouterSchema"
 CHAT_CALL = "chat"
 
+GROQ_REQUEST = httpx.Request(
+    "POST", "https://api.groq.com/openai/v1/chat/completions"
+)
+
+
+def groq_error(status: int, message: str | None = "error") -> APIStatusError:
+    """Build the error the Groq client raises for an HTTP error status.
+
+    With ``message=None`` the response has no JSON body.
+    """
+    response = httpx.Response(status, request=GROQ_REQUEST)
+    if message is None:
+        return APIStatusError(
+            f"Error code: {status}", response=response, body=None
+        )
+    body = {"error": {"message": message, "type": "test_error"}}
+    return APIStatusError(
+        f"Error code: {status} - {body}", response=response, body=body
+    )
+
 
 def _usage(input_chars: int, output_chars: int) -> dict:
     # Roughly four characters per token, like most tokenizers.
@@ -32,7 +54,7 @@ def _usage(input_chars: int, output_chars: int) -> dict:
 
 
 class ScriptedChatModel(BaseChatModel):
-    """Offline stand-in for ChatOllama that answers team and routing calls.
+    """Offline stand-in for ChatGroq that answers team and routing calls.
 
     Attributes:
         team: Agents the team designer proposes. ``None`` makes the designer

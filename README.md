@@ -2,7 +2,7 @@
 
 Researcher is a web app that builds a small team of AI agents for each task you give it. A supervisor passes the work between the agents, and a finalizer merges what they produce into one answer. You can watch each agent's contribution appear as it is written.
 
-It is built with [LangGraph](https://github.com/langchain-ai/langgraph), [Flask](https://flask.palletsprojects.com/) and [Ollama Cloud](https://ollama.com). Each agent runs on the model that suits its skill, so the coder, the reviewer and the writer can all use different models.
+It is built with [LangGraph](https://github.com/langchain-ai/langgraph), [Flask](https://flask.palletsprojects.com/) and [Groq](https://groq.com). Each agent runs on the model that suits its skill, so the coder, the reviewer and the writer can all use different models.
 
 ## How it works
 
@@ -25,7 +25,7 @@ flowchart LR
 3. **Specialist work.** The chosen agent runs on the model assigned to its skill. Its reply is added to the shared conversation, and control goes back to the supervisor.
 4. **Finalizing.** When the supervisor chooses `FINISH`, the finalizer combines the team's work into one Markdown answer. Where there is a reviewed version of any code, it uses that version.
 
-If Ollama refuses a role's model (for example, `402 Payment Required` on the Free plan), that call is retried on `OLLAMA_MODEL` instead of failing the run.
+If Groq refuses a role's model (for example, `429 Too Many Requests` once that model's rate limit is used up), that call is retried on `GROQ_MODEL` instead of failing the run.
 
 ## Features
 
@@ -40,7 +40,7 @@ If Ollama refuses a role's model (for example, `402 Payment Required` on the Fre
 
 ## Quick start
 
-**Prerequisites:** Python 3.10 or newer, and an Ollama Cloud API key. You can create a key at <https://ollama.com/settings/keys>.
+**Prerequisites:** Python 3.10 or newer, and a Groq API key. You can create a key at <https://console.groq.com/keys>.
 
 ```bash
 git clone https://github.com/Aminul1993/Researcher.git
@@ -57,7 +57,7 @@ pip install -r requirements.lock
 
 `requirements.lock` installs the exact, hash-checked versions that CI tests. `pip install -r requirements.txt` also works and picks the newest versions within the supported ranges.
 
-Copy the example settings file, then set `OLLAMA_API_KEY` in `.env` to your key:
+Copy the example settings file, then set `GROQ_API_KEY` in `.env` to your key:
 
 ```bash
 # Windows
@@ -78,34 +78,34 @@ Then open <http://127.0.0.1:5000> and describe a task. To see a full run, click 
 
 All settings are environment variables. The app loads them from `.env` when it starts and reads them once, so restart the server after changing them. [.env.example](.env.example) lists every variable with its default value.
 
-### Ollama
+### Groq
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `OLLAMA_API_KEY` | — | **Required.** Your Ollama Cloud API key. Without it, API calls return `503`. |
-| `OLLAMA_HOST` | `https://ollama.com` | URL of the Ollama server. |
-| `OLLAMA_MODEL` | `gpt-oss:120b` | Default model. It is used for any role that has no model of its own, and when a role's model is refused. |
+| `GROQ_API_KEY` | — | **Required.** Your Groq API key. Without it, API calls return `503`. |
+| `GROQ_BASE_URL` | `https://api.groq.com` | URL of the Groq API. Change it only to go through a proxy. |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` | Default model. It is used for any role that has no model of its own, and when a role's model is refused or rate-limited. |
 
 ### Models per role
 
-To change the model for a role or skill, set `OLLAMA_MODEL_<ROLE>`. For example, `OLLAMA_MODEL_CODING=nemotron-3-ultra`.
+To change the model for a role or skill, set `GROQ_MODEL_<ROLE>`. For example, `GROQ_MODEL_CODING=llama-3.3-70b-versatile`.
 
 | Role / skill | Variable | Default model |
 | --- | --- | --- |
-| Supervisor | `OLLAMA_MODEL_SUPERVISOR` | `gemma4:31b` |
-| Team designer | `OLLAMA_MODEL_DESIGNER` | `gpt-oss:120b` |
-| Finalizer | `OLLAMA_MODEL_FINALIZER` | `gpt-oss:120b` |
-| `planning` | `OLLAMA_MODEL_PLANNING` | `nemotron-3-super` |
-| `research` | `OLLAMA_MODEL_RESEARCH` | `nemotron-3-ultra` |
-| `coding` | `OLLAMA_MODEL_CODING` | `gpt-oss:120b` |
-| `review` | `OLLAMA_MODEL_REVIEW` | `nemotron-3-ultra` |
-| `analysis` | `OLLAMA_MODEL_ANALYSIS` | `gpt-oss:120b` |
-| `writing` | `OLLAMA_MODEL_WRITING` | `gemma4:31b` |
-| `general` | — | `OLLAMA_MODEL` |
+| Supervisor | `GROQ_MODEL_SUPERVISOR` | `openai/gpt-oss-20b` |
+| Team designer | `GROQ_MODEL_DESIGNER` | `openai/gpt-oss-120b` |
+| Finalizer | `GROQ_MODEL_FINALIZER` | `openai/gpt-oss-120b` |
+| `planning` | `GROQ_MODEL_PLANNING` | `llama-3.3-70b-versatile` |
+| `research` | `GROQ_MODEL_RESEARCH` | `llama-3.3-70b-versatile` |
+| `coding` | `GROQ_MODEL_CODING` | `openai/gpt-oss-120b` |
+| `review` | `GROQ_MODEL_REVIEW` | `llama-3.3-70b-versatile` |
+| `analysis` | `GROQ_MODEL_ANALYSIS` | `openai/gpt-oss-120b` |
+| `writing` | `GROQ_MODEL_WRITING` | `llama-3.3-70b-versatile` |
+| `general` | — | `GROQ_MODEL` |
 
-All of these defaults were available on the Ollama Cloud Free plan as of 2026-10-13. The supervisor and the team designer call the models through tool calling, so any model you pick for those roles must support tool calls.
+All of these defaults were Groq production models as of 2026-11-10. [Groq's model list](https://console.groq.com/docs/models) shows the current ones. Preview models also work, but Groq can withdraw them at short notice. The supervisor and the team designer call the models through tool calling, so any model you pick for those roles must support tool calls.
 
-You can also use a local Ollama server. Set `OLLAMA_HOST=http://localhost:11434` and set each `OLLAMA_MODEL_*` to a model you have pulled. The app still requires `OLLAMA_API_KEY` to have a value, but any placeholder other than `your-ollama-api-key` will do.
+Groq limits the requests and tokens each model can serve per minute and per day, and the free plan's limits are low (see [Groq's rate limits](https://console.groq.com/docs/rate-limits)). The limits apply per model, so the defaults spread the roles over three models. When a call is rate-limited, the Groq client retries it twice, waiting as long as Groq asks (up to a minute), and then the call moves to `GROQ_MODEL`. A single long call, such as the finalizer's at the end of a long run, can need more tokens than a model allows per minute. If Groq rejects it as too large, give that role a model with a higher limit, or use a paid plan.
 
 ### Server
 
@@ -119,7 +119,7 @@ You can also use a local Ollama server. Set `OLLAMA_HOST=http://localhost:11434`
 
 ### Login and limits
 
-Every run spends your Ollama key, so set `APP_PASSWORD` before the server is reachable from anywhere but your own machine.
+Every run uses your Groq API key, so set `APP_PASSWORD` before the server is reachable from anywhere but your own machine.
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -208,9 +208,9 @@ While a model call is in progress the stream sends a `: keepalive` comment line 
 | Agent steps per run | 10. After the 10th reply the finalizer answers with the work done so far. |
 | Time per run | `RUN_TIME_BUDGET_SECONDS` (default 600). After that the finalizer answers with the work done so far. |
 | Concurrent runs | `MAX_CONCURRENT_RUNS` (default 4) per server process. Further runs return `429`. |
-| Model timeout | 300 seconds without any data from the model. Replies stream in, so a long reply can take longer in total. A timeout returns `504`. |
+| Model timeout | 300 seconds for each model reply. A timeout returns `504`. |
 
-Other status codes: `400` for an invalid request body, `401` when login is on and the credentials are missing or wrong, `429` when every run slot is busy (retry after the `Retry-After` seconds), `502` when Ollama returns an error (bad key, model not found, model not on your plan), and `503` when `OLLAMA_API_KEY` is missing.
+Other status codes: `400` for an invalid request body, `401` when login is on and the credentials are missing or wrong, `429` when every run slot is busy (retry after the `Retry-After` seconds) or Groq's rate limit was still reached after retrying and falling back, `502` when Groq returns any other error (bad key, model not found, request too large), and `503` when `GROQ_API_KEY` is missing.
 
 ## Using the workflow from Python
 
@@ -295,7 +295,7 @@ Researcher/
 │   ├── errors.py        # Client-safe WorkflowError and its subclasses
 │   ├── schemas.py       # Graph state, API records, structured-output schemas
 │   ├── messages.py      # Reading model replies and presenting them to models
-│   ├── models.py        # Ollama clients and falling back to the default model
+│   ├── models.py        # Groq clients and falling back to the default model
 │   ├── team.py          # Team designer and skill inference
 │   ├── routing.py       # Supervisor, with the step and time budgets
 │   ├── graph.py         # Agent and finalizer nodes, graph builder

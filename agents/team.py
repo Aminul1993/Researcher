@@ -119,7 +119,7 @@ def team_profiles(
     """Describe a team for API clients, including each agent's model.
 
     ``model_label`` maps a skill to the model name to report. It defaults to
-    each skill's configured Ollama model.
+    each skill's configured Groq model.
     """
     label = model_label or get_role_model_name
     profiles: list[AgentProfile] = []

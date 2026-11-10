@@ -130,12 +130,12 @@ def build_dynamic_agent_graph(
     Args:
         agent_registry: Agent name -> role prompt, typically produced by
             ``generate_agent_registry``.
-        model_name: Use this one Ollama model for every role.
+        model_name: Use this one chat model for every role.
         llm: Use this one pre-built chat model for every role.
         agent_skills: Agent name -> skill. Missing skills are inferred
             from the agent's name and role prompt.
         models: Role or skill -> chat model. Defaults to each role's
-            configured Ollama model (see ``DEFAULT_ROLE_MODELS``).
+            configured Groq model (see ``DEFAULT_ROLE_MODELS``).
         deadline: A ``time.monotonic()`` value. Once it has passed, the
             supervisor stops routing and the finalizer runs.
     """

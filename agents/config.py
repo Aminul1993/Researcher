@@ -1,10 +1,10 @@
 """Settings, limits, roles and skills for the workflow.
 
 Settings come from these environment variables:
-    OLLAMA_API_KEY       Ollama Cloud API key (required).
-    OLLAMA_HOST          Server URL, default https://ollama.com.
-    OLLAMA_MODEL         Default model, and the fallback for every role.
-    OLLAMA_MODEL_<ROLE>  Per-role override such as OLLAMA_MODEL_CODING.
+    GROQ_API_KEY         Groq API key (required).
+    GROQ_BASE_URL        API URL, default https://api.groq.com.
+    GROQ_MODEL           Default model, and the fallback for every role.
+    GROQ_MODEL_<ROLE>    Per-role override such as GROQ_MODEL_CODING.
                          Roles are the keys of DEFAULT_ROLE_MODELS.
     RUN_TIME_BUDGET_SECONDS
                          Wall-clock budget per run, default 600.
@@ -23,9 +23,9 @@ from types import MappingProxyType
 
 from .errors import ConfigurationError
 
-DEFAULT_HOST = "https://ollama.com"
-DEFAULT_MODEL = "gpt-oss:120b"
-PLACEHOLDER_API_KEY = "your-ollama-api-key"
+DEFAULT_BASE_URL = "https://api.groq.com"
+DEFAULT_MODEL = "openai/gpt-oss-120b"
+PLACEHOLDER_API_KEY = "your-groq-api-key"
 REQUEST_TIMEOUT_SECONDS = 300.0
 # Agent replies allowed per run. Once they are used up the supervisor stops
 # routing and the finalizer answers with the work done so far.
@@ -51,8 +51,8 @@ MAX_AGENTS = 5
 MAX_AGENT_NAME_LENGTH = 40
 MAX_ROLE_PROMPT_LENGTH = 400
 
-# Ollama Cloud models such as gpt-oss ignore the JSON-schema ``format``
-# option and reply in prose, but they follow tool calls reliably.
+# Every Groq model supports tool calling, while JSON-schema output works
+# on only some of them and can't be combined with tools.
 STRUCTURED_OUTPUT_METHOD = "function_calling"
 
 # Orchestration roles. Agents are assigned one of the SKILLS below instead.
@@ -72,28 +72,29 @@ SKILLS: dict[str, str] = {
     GENERAL_SKILL: "anything else",
 }
 
-# Default model per role. All of these are on Ollama Cloud's Free plan as of
-# 2026-10-13; other cloud models answer 402 Payment Required on that plan.
-# Override any role with OLLAMA_MODEL_<ROLE>; roles not listed here, and any
-# call whose model is refused, use OLLAMA_MODEL.
+# Default model per role. All of these are Groq production models as of
+# 2026-11-10; preview models can be withdrawn at short notice. Groq's rate
+# limits apply per model, so spreading the roles over several models lets a
+# run go further before it hits them.
+# Override any role with GROQ_MODEL_<ROLE>; roles not listed here, and any
+# call whose model is refused or rate-limited, use GROQ_MODEL.
 DEFAULT_ROLE_MODELS: dict[str, str] = {
     # Runs before every step, so it needs fast, reliable tool calling.
-    ROLE_SUPERVISOR: "gemma4:31b",
-    # Proposed the most sensible teams when the free models were compared.
-    ROLE_DESIGNER: "gpt-oss:120b",
+    ROLE_SUPERVISOR: "openai/gpt-oss-20b",
+    # Designing a sensible team needs the strongest reasoning.
+    ROLE_DESIGNER: "openai/gpt-oss-120b",
     # Merges the team's work and keeps code and details intact.
-    ROLE_FINALIZER: "gpt-oss:120b",
-    "planning": "nemotron-3-super",
-    # The largest free model, with the broadest general knowledge.
-    "research": "nemotron-3-ultra",
-    "coding": "gpt-oss:120b",
+    ROLE_FINALIZER: "openai/gpt-oss-120b",
+    "planning": "llama-3.3-70b-versatile",
+    "research": "llama-3.3-70b-versatile",
+    "coding": "openai/gpt-oss-120b",
     # A different model family from the coder gives an independent check.
-    "review": "nemotron-3-ultra",
-    "analysis": "gpt-oss:120b",
-    "writing": "gemma4:31b",
+    "review": "llama-3.3-70b-versatile",
+    "analysis": "openai/gpt-oss-120b",
+    "writing": "llama-3.3-70b-versatile",
 }
 
-_ROLE_MODEL_PREFIX = "OLLAMA_MODEL_"
+_ROLE_MODEL_PREFIX = "GROQ_MODEL_"
 
 
 def _parse_time_budget(raw: str) -> float:
@@ -115,9 +116,9 @@ class Settings:
     """The workflow's configuration, read from the environment."""
 
     api_key: str = field(default="", repr=False)
-    host: str = DEFAULT_HOST
+    base_url: str = DEFAULT_BASE_URL
     default_model: str = DEFAULT_MODEL
-    # Role or skill -> model, with OLLAMA_MODEL_<ROLE> overrides applied.
+    # Role or skill -> model, with GROQ_MODEL_<ROLE> overrides applied.
     role_models: Mapping[str, str] = field(
         default_factory=lambda: MappingProxyType(dict(DEFAULT_ROLE_MODELS))
     )
@@ -141,9 +142,9 @@ class Settings:
             if name.startswith(_ROLE_MODEL_PREFIX) and value.strip()
         }
         return cls(
-            api_key=text("OLLAMA_API_KEY"),
-            host=text("OLLAMA_HOST") or DEFAULT_HOST,
-            default_model=text("OLLAMA_MODEL") or DEFAULT_MODEL,
+            api_key=text("GROQ_API_KEY"),
+            base_url=text("GROQ_BASE_URL") or DEFAULT_BASE_URL,
+            default_model=text("GROQ_MODEL") or DEFAULT_MODEL,
             role_models=MappingProxyType(
                 {**DEFAULT_ROLE_MODELS, **overrides}
             ),
@@ -169,18 +170,18 @@ def reload_settings() -> Settings:
     return get_settings()
 
 
-def get_ollama_host() -> str:
-    """Return the Ollama server URL, defaulting to Ollama Cloud."""
-    return get_settings().host
+def get_groq_base_url() -> str:
+    """Return the Groq API URL (GROQ_BASE_URL)."""
+    return get_settings().base_url
 
 
 def get_model_name() -> str:
-    """Return the default Ollama model name (OLLAMA_MODEL)."""
+    """Return the default Groq model name (GROQ_MODEL)."""
     return get_settings().default_model
 
 
 def get_role_model_name(role: str) -> str:
-    """Return the model for a role or skill, honouring OLLAMA_MODEL_<ROLE>."""
+    """Return the model for a role or skill, honouring GROQ_MODEL_<ROLE>."""
     return get_settings().model_for(role)
 
 
@@ -201,7 +202,7 @@ def orchestration_models(
     """Return the models used by the supervisor, designer and finalizer.
 
     ``model_label`` maps a role to the model name to report. It defaults to
-    each role's configured Ollama model.
+    each role's configured Groq model.
     """
     label = model_label or get_role_model_name
     return {

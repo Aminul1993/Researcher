@@ -2,10 +2,10 @@ import logging
 
 import httpx
 import pytest
+from groq import APIConnectionError, APITimeoutError
 from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.errors import GraphRecursionError
-from ollama import ResponseError
 
 from agents import workflow
 from agents.messages import as_transcript, excerpt
@@ -28,9 +28,11 @@ from agents.workflow import (
 )
 from tests.fakes import (
     CHAT_CALL,
+    GROQ_REQUEST,
     ROUTER_CALL,
     TEAM_CALL,
     ScriptedChatModel,
+    groq_error,
 )
 
 TASK = "Write a function that adds two numbers."
@@ -181,7 +183,7 @@ def test_each_model_call_is_logged_with_latency_and_tokens(fake, caplog):
 
 def test_failed_model_calls_are_logged(caplog):
     caplog.set_level(logging.INFO, logger="agents")
-    model = ScriptedChatModel(error=ResponseError("unauthorized", 401))
+    model = ScriptedChatModel(error=groq_error(401, "Invalid API Key"))
 
     with pytest.raises(WorkflowError):
         events_of(model)
@@ -259,12 +261,14 @@ def test_llm_override_reports_the_model_actually_used(fake):
 
 
 def test_configured_models_are_reported_without_an_override(monkeypatch):
-    monkeypatch.setenv("OLLAMA_MODEL_CODING", "coder-model")
+    monkeypatch.setenv("GROQ_MODEL_CODING", "coder-model")
     workflow.reload_settings()
     team = workflow.Team({"Coder": "Write code."}, {"Coder": "coding"}, True)
 
     assert workflow.team_profiles(team)[0]["model"] == "coder-model"
-    assert workflow.orchestration_models()["supervisor"] == "gemma4:31b"
+    assert workflow.orchestration_models()["supervisor"] == (
+        "openai/gpt-oss-20b"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -399,9 +403,9 @@ def test_invalid_team_error_is_still_a_value_error():
 # ---------------------------------------------------------------------------
 # Models and fallback
 # ---------------------------------------------------------------------------
-def test_refused_model_falls_back_to_the_default_model():
+def test_rate_limited_model_falls_back_to_the_default_model():
     refused = ScriptedChatModel(
-        model="paid-model", error=ResponseError("payment required", 402)
+        model="busy-model", error=groq_error(429, "Rate limit reached")
     )
     default = ScriptedChatModel(
         model="default-model", routes=["Coder", "FINISH"]
@@ -430,7 +434,7 @@ def test_refused_model_falls_back_to_the_default_model():
 
 
 def test_model_errors_become_client_safe_workflow_errors():
-    model = ScriptedChatModel(error=ResponseError("unauthorized", 401))
+    model = ScriptedChatModel(error=groq_error(401, "Invalid API Key"))
 
     with pytest.raises(WorkflowError) as caught:
         events_of(model)
@@ -442,12 +446,15 @@ def test_model_errors_become_client_safe_workflow_errors():
 @pytest.mark.parametrize(
     ("error", "status", "fragment"),
     [
-        (ResponseError("unauthorized", 401), 502, "rejected the API key"),
-        (ResponseError("payment required", 402), 502, "not available"),
-        (ResponseError("forbidden", 403), 502, "not available"),
-        (ResponseError("not found", 404), 502, "was not found"),
-        (ResponseError("boom", 500), 502, "returned an error (500)"),
+        (groq_error(401, "Invalid API Key"), 502, "rejected the API key"),
+        (groq_error(403, "forbidden"), 502, "not available"),
+        (groq_error(404, "model not found"), 502, "was not found"),
+        (groq_error(429, "Rate limit reached"), 429, "Rate limit reached"),
+        (groq_error(500, "boom"), 502, "returned an error (500): boom"),
+        (groq_error(502, None), 502, "(502): Error code: 502"),
         (GraphRecursionError("loop"), 422, "step limit"),
+        (APITimeoutError(GROQ_REQUEST), 504, "too long"),
+        (APIConnectionError(request=GROQ_REQUEST), 502, "Could not connect"),
         (httpx.ReadTimeout("slow"), 504, "too long"),
         (httpx.ConnectError("refused"), 502, "Could not connect"),
         (ConnectionError("reset"), 502, "Could not connect"),
@@ -462,9 +469,9 @@ def test_to_workflow_error(error, status, fragment):
     assert fragment in mapped.message
 
 
-@pytest.mark.parametrize("key", ["", "your-ollama-api-key"])
+@pytest.mark.parametrize("key", ["", "your-groq-api-key"])
 def test_missing_api_key_is_a_configuration_error(monkeypatch, key):
-    monkeypatch.setenv("OLLAMA_API_KEY", key)
+    monkeypatch.setenv("GROQ_API_KEY", key)
     workflow.reload_settings()
 
     with pytest.raises(ConfigurationError) as caught:
@@ -475,63 +482,63 @@ def test_missing_api_key_is_a_configuration_error(monkeypatch, key):
 
 
 def test_clients_are_cached_per_model(monkeypatch):
-    monkeypatch.setenv("OLLAMA_API_KEY", "test-key")
+    monkeypatch.setenv("GROQ_API_KEY", "test-key")
     workflow.reload_settings()
 
     client = workflow.get_role_llm("coding")
 
-    assert client is workflow.get_llm("gpt-oss:120b")
-    assert client.model == "gpt-oss:120b"
-    assert client.base_url == "https://ollama.com"
+    assert client is workflow.get_llm("openai/gpt-oss-120b")
+    assert client.model == "openai/gpt-oss-120b"
+    assert client.groq_api_base == "https://api.groq.com"
     assert workflow.create_llm() is not client  # A new, unshared client.
 
 
 def test_model_settings_come_from_the_environment(monkeypatch):
-    assert workflow.get_model_name() == "gpt-oss:120b"
-    assert workflow.get_role_model_name("general") == "gpt-oss:120b"
+    assert workflow.get_model_name() == "openai/gpt-oss-120b"
+    assert workflow.get_role_model_name("general") == "openai/gpt-oss-120b"
 
-    monkeypatch.setenv("OLLAMA_MODEL", "base-model")
-    monkeypatch.setenv("OLLAMA_MODEL_REVIEW", " review-model ")
-    monkeypatch.setenv("OLLAMA_MODEL_PLANNING", " ")
-    monkeypatch.setenv("OLLAMA_HOST", "http://localhost:11434")
+    monkeypatch.setenv("GROQ_MODEL", "base-model")
+    monkeypatch.setenv("GROQ_MODEL_REVIEW", " review-model ")
+    monkeypatch.setenv("GROQ_MODEL_PLANNING", " ")
+    monkeypatch.setenv("GROQ_BASE_URL", "https://proxy.example")
     workflow.reload_settings()
 
     models = workflow.get_role_models()
     assert models["review"] == "review-model"
-    assert models["planning"] == "nemotron-3-super"  # Blank is ignored.
+    assert models["planning"] == "llama-3.3-70b-versatile"  # Blank ignored.
     assert models["general"] == "base-model"
-    assert models["supervisor"] == "gemma4:31b"
+    assert models["supervisor"] == "openai/gpt-oss-20b"
     assert workflow.get_role_model_name("custom") == "base-model"
-    assert workflow.get_ollama_host() == "http://localhost:11434"
+    assert workflow.get_groq_base_url() == "https://proxy.example"
 
 
 def test_settings_are_a_consistent_snapshot(monkeypatch):
-    monkeypatch.setenv("OLLAMA_API_KEY", "first-key")
+    monkeypatch.setenv("GROQ_API_KEY", "first-key")
     workflow.reload_settings()
     first = workflow.get_llm("m")
 
-    monkeypatch.setenv("OLLAMA_API_KEY", "second-key")
-    monkeypatch.setenv("OLLAMA_HOST", "http://other:11434")
+    monkeypatch.setenv("GROQ_API_KEY", "second-key")
+    monkeypatch.setenv("GROQ_BASE_URL", "https://other.example")
     assert workflow.get_llm("m") is first  # Not reloaded yet.
 
     settings = workflow.reload_settings()
     second = workflow.get_llm("m")
     assert second is not first  # The new key and host take effect at once.
-    assert second.base_url == "http://other:11434"
+    assert second.groq_api_base == "https://other.example"
     assert "second-key" not in repr(settings)
 
 
 def test_settings_can_be_read_from_a_mapping():
     settings = workflow.Settings.from_env({
-        "OLLAMA_MODEL": "base",
-        "OLLAMA_MODEL_WRITING": "writer",
+        "GROQ_MODEL": "base",
+        "GROQ_MODEL_WRITING": "writer",
         "RUN_TIME_BUDGET_SECONDS": "30",
     })
 
     assert settings.model_for("writing") == "writer"
     assert settings.model_for("unknown") == "base"
     assert settings.run_time_budget == 30.0
-    assert settings.host == workflow.DEFAULT_HOST
+    assert settings.base_url == workflow.DEFAULT_BASE_URL
 
 
 def test_compatibility_layer_exports_every_public_name():

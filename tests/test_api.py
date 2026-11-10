@@ -7,10 +7,10 @@ import time
 from urllib.parse import urlsplit
 
 import pytest
-from ollama import ResponseError
 
 import app as app_module
 from agents.workflow import RunIdFilter
+from tests.fakes import groq_error
 
 TASK = "Write a function that adds two numbers."
 
@@ -113,7 +113,7 @@ def test_health(client):
 
     assert response.status_code == 200
     assert response.json["status"] == "ok"
-    assert response.json["role_models"]["supervisor"] == "gemma4:31b"
+    assert response.json["role_models"]["supervisor"] == "openai/gpt-oss-20b"
 
 
 # ---------------------------------------------------------------------------
@@ -198,7 +198,7 @@ def test_run_returns_every_step(client):
 
 
 def test_run_reports_workflow_errors(make_app, fake):
-    fake.error = ResponseError("unauthorized", 401)
+    fake.error = groq_error(401, "Invalid API Key")
     client = make_app().test_client()
 
     response = client.post("/api/run", json={"task": TASK})
@@ -295,7 +295,7 @@ def test_logging_setup_adds_the_run_id_filter():
 
 
 def test_stream_reports_workflow_errors_as_events(make_app, fake):
-    fake.error = ResponseError("unauthorized", 401)
+    fake.error = groq_error(401, "Invalid API Key")
     client = make_app().test_client()
 
     events = sse_events(
@@ -436,7 +436,7 @@ def test_freeing_a_run_slot_twice_frees_it_once(make_app):
 
 
 def test_slot_is_freed_after_a_failed_run(make_app, fake):
-    fake.error = ResponseError("unauthorized", 401)
+    fake.error = groq_error(401, "Invalid API Key")
     client = make_app(MAX_CONCURRENT_RUNS=1).test_client()
 
     assert client.post("/api/run", json={"task": TASK}).status_code == 502
