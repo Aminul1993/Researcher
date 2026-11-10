@@ -82,11 +82,19 @@
     return `${seconds < 10 ? seconds.toFixed(1) : Math.round(seconds)}s`;
   }
 
-  /** A short plain-text preview of a Markdown reply. */
+  /**
+   * A short plain-text preview of a Markdown reply. Headings become lead-ins
+   * ("Plan: …") so they do not run into the sentence after them.
+   */
   function excerpt(text, limit) {
     const plain = String(text || '')
       .replace(/```[\s\S]*?(?:```|$)/g, '\n[code]\n')
-      .replace(/^\s{0,3}(?:#{1,6}|>)\s*/gm, '')
+      .replace(/^\s{0,3}#{1,6}[ \t]+(.*?)[ \t#]*$/gm, (line, heading) => {
+        if (!heading) return '';
+        return /[.:!?]$/.test(heading) ? heading : `${heading}:`;
+      })
+      .replace(/^\s{0,3}>[ \t]?/gm, '')
+      .replace(/^[ \t]*[-*+][ \t]+/gm, '• ')
       .replace(/\*\*|__|`/g, '')
       .replace(/\s+/g, ' ')
       .trim();
@@ -122,6 +130,10 @@
 
   function round(value) {
     return Math.round(value * 10) / 10;
+  }
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
   function storageGet(key) {
@@ -191,6 +203,7 @@
     const els = {
       toggle: section.querySelector('.graph-toggle'),
       state: section.querySelector('.graph-state'),
+      scroll: section.querySelector('.graph-scroll'),
       canvas: section.querySelector('.graph-canvas'),
       edges: section.querySelector('.graph-edges'),
       mainRow: section.querySelector('.graph-row-main'),
@@ -219,7 +232,6 @@
         el('span', 'graph-node-name', node.label),
         node.metaEl
       );
-      button.title = node.role || node.label;
       button.addEventListener('click', () => selectNode(node));
       node.el = button;
       run.nodes.set(node.id, node);
@@ -326,6 +338,7 @@
         visits: [],
         current: null,
         selection: null,
+        followedVisit: null,
         teamSize: 0,
         timerId: null,
         detailKey: '',
@@ -508,10 +521,13 @@
       return formatDuration(total);
     }
 
+    /**
+     * The node's one-line status. It stays short enough for the narrowest
+     * node: live clocks are on the execution path, and totals in the tooltip.
+     */
     function nodeMeta(node) {
       if (run.current && run.current.node === node) {
-        const verb = ACTIVE_VERBS[node.kind];
-        return run.live ? `${verb} · ${visitTime(run.current)}` : `${verb}…`;
+        return `${ACTIVE_VERBS[node.kind]}…`;
       }
       switch (node.status) {
         case 'error':
@@ -525,7 +541,7 @@
         default:
           break;
       }
-      const summary = {
+      return {
         task: 'Received',
         answer: 'Ready',
         designer: plural(run.teamSize, 'agent'),
@@ -533,17 +549,23 @@
         agent: plural(node.visits.length, 'reply', 'replies'),
         finalizer: 'Merged',
       }[node.kind];
+    }
+
+    /** Hover text: an agent's full name and role, and any node's time. */
+    function nodeTooltip(node) {
+      const lines = node.kind === 'agent' ? [node.label, node.role] : [];
       const time = totalTime(node);
-      return time ? `${summary} · ${time}` : summary;
+      if (time) lines.push(`${time} in total`);
+      return lines.filter(Boolean).join('\n');
     }
 
     function trailLabel(visit) {
       if (visit.node.kind !== 'supervisor') return visit.node.label;
       if (!visit.decision) return 'Routing';
-      return `→ ${visit.decision === FINISH ? 'Finish' : visit.decision}`;
+      return visit.decision === FINISH ? 'Finish' : `To ${visit.decision}`;
     }
 
-    /** The trail item's accessible name, which has no arrows or icons. */
+    /** The trail item's accessible name, spelled out in full. */
     function describeVisit(visit) {
       const node = visit.node;
       let text = node.label;
@@ -606,12 +628,41 @@
           (node === pinned ? ' is-selected' : '');
         node.el.setAttribute('aria-pressed', String(node === pinned));
         node.metaEl.textContent = nodeMeta(node);
+        const tooltip = nodeTooltip(node);
+        if (tooltip) {
+          node.el.title = tooltip;
+        } else {
+          node.el.removeAttribute('title');
+        }
       });
       renderEdgeStates();
       run.visits.forEach(renderTrailItem);
       els.state.textContent = RUN_STATES[run.state];
       els.state.className = `graph-state is-${run.state}`;
       renderDetail();
+      keepCurrentInView();
+    }
+
+    /**
+     * Where the canvas scrolls sideways (narrow screens), bring each newly
+     * working node into view, unless the user has pinned something else.
+     */
+    function keepCurrentInView() {
+      const visit = run.current;
+      if (!run.live || !visit || run.selection) return;
+      if (run.followedVisit === visit) return;
+      run.followedVisit = visit;
+      const scroller = els.scroll;
+      if (scroller.scrollWidth <= scroller.clientWidth) return;
+      const node = box(visit.node);
+      const left = scroller.scrollLeft;
+      if (node.left >= left && node.right <= left + scroller.clientWidth) {
+        return;
+      }
+      scroller.scrollTo({
+        left: node.centerX - scroller.clientWidth / 2,
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      });
     }
 
     function renderEdgeStates() {
@@ -831,7 +882,6 @@
     function tick() {
       if (!isRunning() || !run.current) return;
       const visit = run.current;
-      visit.node.metaEl.textContent = nodeMeta(visit.node);
       visit.timeEl.textContent = visitTime(visit);
       const item = shownItem();
       if (item && item.visit === visit) {

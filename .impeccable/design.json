@@ -1,0 +1,1010 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T10:37:50+00:00",
+  "title": "Design System: Researcher",
+  "extensions": {
+    "colorMeta": {
+      "launch-blue": {
+        "role": "primary",
+        "displayName": "Launch Blue",
+        "canonical": "#0d6efd",
+        "oklch": "oklch(57.8% 0.228 260.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.112 260.0)",
+          "oklch(26.0% 0.172 260.0)",
+          "oklch(38.0% 0.214 260.0)",
+          "oklch(49.0% 0.228 260.0)",
+          "oklch(61.0% 0.216 260.0)",
+          "oklch(72.0% 0.180 260.0)",
+          "oklch(84.0% 0.118 260.0)",
+          "oklch(95.0% 0.043 260.0)"
+        ]
+      },
+      "launch-blue-deep": {
+        "role": "primary",
+        "displayName": "Launch Blue Deep",
+        "canonical": "#0b5ed7",
+        "oklch": "oklch(51.5% 0.200 259.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.098 259.8)",
+          "oklch(26.0% 0.150 259.8)",
+          "oklch(38.0% 0.187 259.8)",
+          "oklch(49.0% 0.200 259.8)",
+          "oklch(61.0% 0.189 259.8)",
+          "oklch(72.0% 0.158 259.8)",
+          "oklch(84.0% 0.103 259.8)",
+          "oklch(95.0% 0.038 259.8)"
+        ]
+      },
+      "link-blue-dark": {
+        "role": "primary",
+        "displayName": "Link Blue (dark theme)",
+        "canonical": "#6ea8fe",
+        "oklch": "oklch(72.9% 0.140 258.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.069 258.1)",
+          "oklch(26.0% 0.105 258.1)",
+          "oklch(38.0% 0.131 258.1)",
+          "oklch(49.0% 0.140 258.1)",
+          "oklch(61.0% 0.132 258.1)",
+          "oklch(72.0% 0.111 258.1)",
+          "oklch(84.0% 0.072 258.1)",
+          "oklch(95.0% 0.026 258.1)"
+        ]
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "On-Accent White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.0% 0.000 89.9)",
+          "oklch(38.0% 0.000 89.9)",
+          "oklch(49.0% 0.000 89.9)",
+          "oklch(61.0% 0.000 89.9)",
+          "oklch(72.0% 0.000 89.9)",
+          "oklch(84.0% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "crew-indigo": {
+        "role": "secondary",
+        "displayName": "Crew Indigo",
+        "canonical": "#4f46e5",
+        "oklch": "oklch(51.1% 0.230 277.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.113 277.0)",
+          "oklch(26.0% 0.173 277.0)",
+          "oklch(38.0% 0.215 277.0)",
+          "oklch(49.0% 0.230 277.0)",
+          "oklch(61.0% 0.218 277.0)",
+          "oklch(72.0% 0.182 277.0)",
+          "oklch(84.0% 0.119 277.0)",
+          "oklch(95.0% 0.043 277.0)"
+        ]
+      },
+      "crew-indigo-dark": {
+        "role": "secondary",
+        "displayName": "Crew Indigo (dark theme)",
+        "canonical": "#a5b4fc",
+        "oklch": "oklch(78.5% 0.104 274.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.051 274.7)",
+          "oklch(26.0% 0.078 274.7)",
+          "oklch(38.0% 0.098 274.7)",
+          "oklch(49.0% 0.104 274.7)",
+          "oklch(61.0% 0.099 274.7)",
+          "oklch(72.0% 0.082 274.7)",
+          "oklch(84.0% 0.054 274.7)",
+          "oklch(95.0% 0.020 274.7)"
+        ]
+      },
+      "crew-teal": {
+        "role": "secondary",
+        "displayName": "Crew Teal",
+        "canonical": "#0e7490",
+        "oklch": "oklch(52.0% 0.094 223.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.046 223.1)",
+          "oklch(26.0% 0.070 223.1)",
+          "oklch(38.0% 0.088 223.1)",
+          "oklch(49.0% 0.094 223.1)",
+          "oklch(61.0% 0.089 223.1)",
+          "oklch(72.0% 0.074 223.1)",
+          "oklch(84.0% 0.048 223.1)",
+          "oklch(95.0% 0.018 223.1)"
+        ]
+      },
+      "crew-teal-dark": {
+        "role": "secondary",
+        "displayName": "Crew Teal (dark theme)",
+        "canonical": "#67e8f9",
+        "oklch": "oklch(86.5% 0.115 207.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.057 207.1)",
+          "oklch(26.0% 0.087 207.1)",
+          "oklch(38.0% 0.108 207.1)",
+          "oklch(49.0% 0.115 207.1)",
+          "oklch(61.0% 0.109 207.1)",
+          "oklch(72.0% 0.091 207.1)",
+          "oklch(84.0% 0.060 207.1)",
+          "oklch(95.0% 0.022 207.1)"
+        ]
+      },
+      "crew-green": {
+        "role": "secondary",
+        "displayName": "Crew Green",
+        "canonical": "#15803d",
+        "oklch": "oklch(52.7% 0.137 150.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.067 150.1)",
+          "oklch(26.0% 0.103 150.1)",
+          "oklch(38.0% 0.128 150.1)",
+          "oklch(49.0% 0.137 150.1)",
+          "oklch(61.0% 0.130 150.1)",
+          "oklch(72.0% 0.108 150.1)",
+          "oklch(84.0% 0.071 150.1)",
+          "oklch(95.0% 0.026 150.1)"
+        ]
+      },
+      "crew-green-dark": {
+        "role": "secondary",
+        "displayName": "Crew Green (dark theme)",
+        "canonical": "#86efac",
+        "oklch": "oklch(87.1% 0.136 154.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.067 154.4)",
+          "oklch(26.0% 0.103 154.4)",
+          "oklch(38.0% 0.128 154.4)",
+          "oklch(49.0% 0.136 154.4)",
+          "oklch(61.0% 0.129 154.4)",
+          "oklch(72.0% 0.108 154.4)",
+          "oklch(84.0% 0.071 154.4)",
+          "oklch(95.0% 0.026 154.4)"
+        ]
+      },
+      "crew-amber": {
+        "role": "secondary",
+        "displayName": "Crew Amber",
+        "canonical": "#b45309",
+        "oklch": "oklch(55.5% 0.146 49.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.071 49.0)",
+          "oklch(26.0% 0.109 49.0)",
+          "oklch(38.0% 0.136 49.0)",
+          "oklch(49.0% 0.145 49.0)",
+          "oklch(61.0% 0.138 49.0)",
+          "oklch(72.0% 0.115 49.0)",
+          "oklch(84.0% 0.075 49.0)",
+          "oklch(95.0% 0.027 49.0)"
+        ]
+      },
+      "crew-amber-dark": {
+        "role": "secondary",
+        "displayName": "Crew Amber (dark theme)",
+        "canonical": "#fcd34d",
+        "oklch": "oklch(87.9% 0.153 91.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.075 91.6)",
+          "oklch(26.0% 0.115 91.6)",
+          "oklch(38.0% 0.144 91.6)",
+          "oklch(49.0% 0.153 91.6)",
+          "oklch(61.0% 0.145 91.6)",
+          "oklch(72.0% 0.121 91.6)",
+          "oklch(84.0% 0.080 91.6)",
+          "oklch(95.0% 0.029 91.6)"
+        ]
+      },
+      "crew-rose": {
+        "role": "secondary",
+        "displayName": "Crew Rose",
+        "canonical": "#be185d",
+        "oklch": "oklch(52.5% 0.199 4.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.098 4.0)",
+          "oklch(26.0% 0.150 4.0)",
+          "oklch(38.0% 0.186 4.0)",
+          "oklch(49.0% 0.199 4.0)",
+          "oklch(61.0% 0.188 4.0)",
+          "oklch(72.0% 0.157 4.0)",
+          "oklch(84.0% 0.103 4.0)",
+          "oklch(95.0% 0.037 4.0)"
+        ]
+      },
+      "crew-rose-dark": {
+        "role": "secondary",
+        "displayName": "Crew Rose (dark theme)",
+        "canonical": "#f9a8d4",
+        "oklch": "oklch(82.3% 0.110 346.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.054 346.0)",
+          "oklch(26.0% 0.082 346.0)",
+          "oklch(38.0% 0.103 346.0)",
+          "oklch(49.0% 0.109 346.0)",
+          "oklch(61.0% 0.104 346.0)",
+          "oklch(72.0% 0.087 346.0)",
+          "oklch(84.0% 0.057 346.0)",
+          "oklch(95.0% 0.021 346.0)"
+        ]
+      },
+      "crew-violet": {
+        "role": "secondary",
+        "displayName": "Crew Violet",
+        "canonical": "#7c3aed",
+        "oklch": "oklch(54.1% 0.247 293.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.121 293.0)",
+          "oklch(26.0% 0.186 293.0)",
+          "oklch(38.0% 0.231 293.0)",
+          "oklch(49.0% 0.246 293.0)",
+          "oklch(61.0% 0.233 293.0)",
+          "oklch(72.0% 0.195 293.0)",
+          "oklch(84.0% 0.128 293.0)",
+          "oklch(95.0% 0.046 293.0)"
+        ]
+      },
+      "crew-violet-dark": {
+        "role": "secondary",
+        "displayName": "Crew Violet (dark theme)",
+        "canonical": "#c4b5fd",
+        "oklch": "oklch(81.1% 0.101 293.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.050 293.6)",
+          "oklch(26.0% 0.076 293.6)",
+          "oklch(38.0% 0.095 293.6)",
+          "oklch(49.0% 0.101 293.6)",
+          "oklch(61.0% 0.096 293.6)",
+          "oklch(72.0% 0.080 293.6)",
+          "oklch(84.0% 0.052 293.6)",
+          "oklch(95.0% 0.019 293.6)"
+        ]
+      },
+      "supervisor-slate": {
+        "role": "secondary",
+        "displayName": "Supervisor Slate",
+        "canonical": "#475569",
+        "oklch": "oklch(44.6% 0.037 257.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 257.3)",
+          "oklch(26.0% 0.028 257.3)",
+          "oklch(38.0% 0.035 257.3)",
+          "oklch(49.0% 0.037 257.3)",
+          "oklch(61.0% 0.035 257.3)",
+          "oklch(72.0% 0.030 257.3)",
+          "oklch(84.0% 0.019 257.3)",
+          "oklch(95.0% 0.007 257.3)"
+        ]
+      },
+      "supervisor-slate-dark": {
+        "role": "secondary",
+        "displayName": "Supervisor Slate (dark theme)",
+        "canonical": "#cbd5e1",
+        "oklch": "oklch(86.9% 0.020 252.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.010 252.9)",
+          "oklch(26.0% 0.015 252.9)",
+          "oklch(38.0% 0.019 252.9)",
+          "oklch(49.0% 0.020 252.9)",
+          "oklch(61.0% 0.019 252.9)",
+          "oklch(72.0% 0.016 252.9)",
+          "oklch(84.0% 0.010 252.9)",
+          "oklch(95.0% 0.004 252.9)"
+        ]
+      },
+      "answer-green": {
+        "role": "tertiary",
+        "displayName": "Answer Green",
+        "canonical": "#198754",
+        "oklch": "oklch(55.2% 0.123 157.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.061 157.0)",
+          "oklch(26.0% 0.093 157.0)",
+          "oklch(38.0% 0.116 157.0)",
+          "oklch(49.0% 0.123 157.0)",
+          "oklch(61.0% 0.117 157.0)",
+          "oklch(72.0% 0.098 157.0)",
+          "oklch(84.0% 0.064 157.0)",
+          "oklch(95.0% 0.023 157.0)"
+        ]
+      },
+      "answer-green-dark": {
+        "role": "tertiary",
+        "displayName": "Answer Green (dark theme)",
+        "canonical": "#75b798",
+        "oklch": "oklch(72.6% 0.082 163.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.040 163.2)",
+          "oklch(26.0% 0.061 163.2)",
+          "oklch(38.0% 0.077 163.2)",
+          "oklch(49.0% 0.082 163.2)",
+          "oklch(61.0% 0.077 163.2)",
+          "oklch(72.0% 0.065 163.2)",
+          "oklch(84.0% 0.042 163.2)",
+          "oklch(95.0% 0.015 163.2)"
+        ]
+      },
+      "answer-green-wash": {
+        "role": "tertiary",
+        "displayName": "Answer Green Wash",
+        "canonical": "#d1e7dd",
+        "oklch": "oklch(90.9% 0.027 166.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 166.7)",
+          "oklch(26.0% 0.020 166.7)",
+          "oklch(38.0% 0.025 166.7)",
+          "oklch(49.0% 0.027 166.7)",
+          "oklch(61.0% 0.025 166.7)",
+          "oklch(72.0% 0.021 166.7)",
+          "oklch(84.0% 0.014 166.7)",
+          "oklch(95.0% 0.005 166.7)"
+        ]
+      },
+      "answer-green-wash-dark": {
+        "role": "tertiary",
+        "displayName": "Answer Green Wash (dark theme)",
+        "canonical": "#051b11",
+        "oklch": "oklch(20.0% 0.035 161.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.017 161.8)",
+          "oklch(26.0% 0.027 161.8)",
+          "oklch(38.0% 0.033 161.8)",
+          "oklch(49.0% 0.035 161.8)",
+          "oklch(61.0% 0.033 161.8)",
+          "oklch(72.0% 0.028 161.8)",
+          "oklch(84.0% 0.018 161.8)",
+          "oklch(95.0% 0.007 161.8)"
+        ]
+      },
+      "answer-green-ink": {
+        "role": "tertiary",
+        "displayName": "Answer Green Ink",
+        "canonical": "#0a3622",
+        "oklch": "oklch(29.7% 0.060 159.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.029 159.2)",
+          "oklch(26.0% 0.045 159.2)",
+          "oklch(38.0% 0.056 159.2)",
+          "oklch(49.0% 0.060 159.2)",
+          "oklch(61.0% 0.057 159.2)",
+          "oklch(72.0% 0.047 159.2)",
+          "oklch(84.0% 0.031 159.2)",
+          "oklch(95.0% 0.011 159.2)"
+        ]
+      },
+      "answer-green-edge": {
+        "role": "tertiary",
+        "displayName": "Answer Green Edge",
+        "canonical": "#a3cfbb",
+        "oklch": "oklch(81.7% 0.054 165.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.027 165.6)",
+          "oklch(26.0% 0.041 165.6)",
+          "oklch(38.0% 0.051 165.6)",
+          "oklch(49.0% 0.054 165.6)",
+          "oklch(61.0% 0.051 165.6)",
+          "oklch(72.0% 0.043 165.6)",
+          "oklch(84.0% 0.028 165.6)",
+          "oklch(95.0% 0.010 165.6)"
+        ]
+      },
+      "answer-green-edge-dark": {
+        "role": "tertiary",
+        "displayName": "Answer Green Edge (dark theme)",
+        "canonical": "#0f5132",
+        "oklch": "oklch(38.6% 0.083 157.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.041 157.5)",
+          "oklch(26.0% 0.063 157.5)",
+          "oklch(38.0% 0.078 157.5)",
+          "oklch(49.0% 0.083 157.5)",
+          "oklch(61.0% 0.079 157.5)",
+          "oklch(72.0% 0.066 157.5)",
+          "oklch(84.0% 0.043 157.5)",
+          "oklch(95.0% 0.016 157.5)"
+        ]
+      },
+      "failure-red": {
+        "role": "tertiary",
+        "displayName": "Failure Red",
+        "canonical": "#dc3545",
+        "oklch": "oklch(59.2% 0.202 21.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.099 21.2)",
+          "oklch(26.0% 0.152 21.2)",
+          "oklch(38.0% 0.189 21.2)",
+          "oklch(49.0% 0.202 21.2)",
+          "oklch(61.0% 0.191 21.2)",
+          "oklch(72.0% 0.160 21.2)",
+          "oklch(84.0% 0.105 21.2)",
+          "oklch(95.0% 0.038 21.2)"
+        ]
+      },
+      "failure-red-wash": {
+        "role": "tertiary",
+        "displayName": "Failure Red Wash",
+        "canonical": "#f8d7da",
+        "oklch": "oklch(90.7% 0.037 11.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 11.6)",
+          "oklch(26.0% 0.028 11.6)",
+          "oklch(38.0% 0.035 11.6)",
+          "oklch(49.0% 0.037 11.6)",
+          "oklch(61.0% 0.035 11.6)",
+          "oklch(72.0% 0.029 11.6)",
+          "oklch(84.0% 0.019 11.6)",
+          "oklch(95.0% 0.007 11.6)"
+        ]
+      },
+      "failure-red-wash-dark": {
+        "role": "tertiary",
+        "displayName": "Failure Red Wash (dark theme)",
+        "canonical": "#2c0b0e",
+        "oklch": "oklch(20.7% 0.055 17.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.027 17.8)",
+          "oklch(26.0% 0.041 17.8)",
+          "oklch(38.0% 0.051 17.8)",
+          "oklch(49.0% 0.055 17.8)",
+          "oklch(61.0% 0.052 17.8)",
+          "oklch(72.0% 0.043 17.8)",
+          "oklch(84.0% 0.028 17.8)",
+          "oklch(95.0% 0.010 17.8)"
+        ]
+      },
+      "failure-red-ink": {
+        "role": "tertiary",
+        "displayName": "Failure Red Ink",
+        "canonical": "#58151c",
+        "oklch": "oklch(31.2% 0.097 19.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.048 19.2)",
+          "oklch(26.0% 0.073 19.2)",
+          "oklch(38.0% 0.091 19.2)",
+          "oklch(49.0% 0.097 19.2)",
+          "oklch(61.0% 0.092 19.2)",
+          "oklch(72.0% 0.077 19.2)",
+          "oklch(84.0% 0.051 19.2)",
+          "oklch(95.0% 0.018 19.2)"
+        ]
+      },
+      "failure-red-ink-dark": {
+        "role": "tertiary",
+        "displayName": "Failure Red Ink (dark theme)",
+        "canonical": "#ea868f",
+        "oklch": "oklch(73.0% 0.123 14.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.060 14.8)",
+          "oklch(26.0% 0.092 14.8)",
+          "oklch(38.0% 0.115 14.8)",
+          "oklch(49.0% 0.122 14.8)",
+          "oklch(61.0% 0.116 14.8)",
+          "oklch(72.0% 0.097 14.8)",
+          "oklch(84.0% 0.064 14.8)",
+          "oklch(95.0% 0.023 14.8)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#f4f6fb",
+        "oklch": "oklch(97.3% 0.007 268.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 268.5)",
+          "oklch(26.0% 0.005 268.5)",
+          "oklch(38.0% 0.007 268.5)",
+          "oklch(49.0% 0.007 268.5)",
+          "oklch(61.0% 0.007 268.5)",
+          "oklch(72.0% 0.006 268.5)",
+          "oklch(84.0% 0.004 268.5)",
+          "oklch(95.0% 0.001 268.5)"
+        ]
+      },
+      "canvas-dark": {
+        "role": "neutral",
+        "displayName": "Canvas (dark theme)",
+        "canonical": "#0d1014",
+        "oklch": "oklch(17.2% 0.010 255.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 255.7)",
+          "oklch(26.0% 0.007 255.7)",
+          "oklch(38.0% 0.009 255.7)",
+          "oklch(49.0% 0.010 255.7)",
+          "oklch(61.0% 0.009 255.7)",
+          "oklch(72.0% 0.008 255.7)",
+          "oklch(84.0% 0.005 255.7)",
+          "oklch(95.0% 0.002 255.7)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.0% 0.000 89.9)",
+          "oklch(38.0% 0.000 89.9)",
+          "oklch(49.0% 0.000 89.9)",
+          "oklch(61.0% 0.000 89.9)",
+          "oklch(72.0% 0.000 89.9)",
+          "oklch(84.0% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "surface-dark": {
+        "role": "neutral",
+        "displayName": "Surface (dark theme)",
+        "canonical": "#212529",
+        "oklch": "oklch(26.2% 0.009 248.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 248.2)",
+          "oklch(26.0% 0.007 248.2)",
+          "oklch(38.0% 0.009 248.2)",
+          "oklch(49.0% 0.009 248.2)",
+          "oklch(61.0% 0.009 248.2)",
+          "oklch(72.0% 0.008 248.2)",
+          "oklch(84.0% 0.005 248.2)",
+          "oklch(95.0% 0.002 248.2)"
+        ]
+      },
+      "surface-tint": {
+        "role": "neutral",
+        "displayName": "Surface Tint",
+        "canonical": "#f8f9fa",
+        "oklch": "oklch(98.2% 0.002 247.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 247.8)",
+          "oklch(26.0% 0.001 247.8)",
+          "oklch(38.0% 0.002 247.8)",
+          "oklch(49.0% 0.002 247.8)",
+          "oklch(61.0% 0.002 247.8)",
+          "oklch(72.0% 0.001 247.8)",
+          "oklch(84.0% 0.001 247.8)",
+          "oklch(95.0% 0.000 247.8)"
+        ]
+      },
+      "surface-tint-dark": {
+        "role": "neutral",
+        "displayName": "Surface Tint (dark theme)",
+        "canonical": "#2b3035",
+        "oklch": "oklch(30.6% 0.011 248.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 248.2)",
+          "oklch(26.0% 0.009 248.2)",
+          "oklch(38.0% 0.011 248.2)",
+          "oklch(49.0% 0.011 248.2)",
+          "oklch(61.0% 0.011 248.2)",
+          "oklch(72.0% 0.009 248.2)",
+          "oklch(84.0% 0.006 248.2)",
+          "oklch(95.0% 0.002 248.2)"
+        ]
+      },
+      "surface-muted": {
+        "role": "neutral",
+        "displayName": "Surface Muted",
+        "canonical": "#e9ecef",
+        "oklch": "oklch(94.2% 0.005 247.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 247.9)",
+          "oklch(26.0% 0.004 247.9)",
+          "oklch(38.0% 0.005 247.9)",
+          "oklch(49.0% 0.005 247.9)",
+          "oklch(61.0% 0.005 247.9)",
+          "oklch(72.0% 0.004 247.9)",
+          "oklch(84.0% 0.003 247.9)",
+          "oklch(95.0% 0.001 247.9)"
+        ]
+      },
+      "surface-muted-dark": {
+        "role": "neutral",
+        "displayName": "Surface Muted (dark theme)",
+        "canonical": "#343a40",
+        "oklch": "oklch(34.5% 0.013 248.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 248.2)",
+          "oklch(26.0% 0.010 248.2)",
+          "oklch(38.0% 0.012 248.2)",
+          "oklch(49.0% 0.013 248.2)",
+          "oklch(61.0% 0.013 248.2)",
+          "oklch(72.0% 0.011 248.2)",
+          "oklch(84.0% 0.007 248.2)",
+          "oklch(95.0% 0.003 248.2)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#212529",
+        "oklch": "oklch(26.2% 0.009 248.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.005 248.2)",
+          "oklch(26.0% 0.007 248.2)",
+          "oklch(38.0% 0.009 248.2)",
+          "oklch(49.0% 0.009 248.2)",
+          "oklch(61.0% 0.009 248.2)",
+          "oklch(72.0% 0.008 248.2)",
+          "oklch(84.0% 0.005 248.2)",
+          "oklch(95.0% 0.002 248.2)"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Ink (dark theme)",
+        "canonical": "#dee2e6",
+        "oklch": "oklch(91.1% 0.007 247.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 247.9)",
+          "oklch(26.0% 0.005 247.9)",
+          "oklch(38.0% 0.007 247.9)",
+          "oklch(49.0% 0.007 247.9)",
+          "oklch(61.0% 0.007 247.9)",
+          "oklch(72.0% 0.006 247.9)",
+          "oklch(84.0% 0.004 247.9)",
+          "oklch(95.0% 0.001 247.9)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "rgba(33, 37, 41, 0.75)",
+        "note": "Translucent; composites over the surface beneath it."
+      },
+      "ink-muted-dark": {
+        "role": "neutral",
+        "displayName": "Ink Muted (dark theme)",
+        "canonical": "rgba(222, 226, 230, 0.75)",
+        "note": "Translucent; composites over the surface beneath it."
+      },
+      "quiet-grey": {
+        "role": "neutral",
+        "displayName": "Quiet Grey",
+        "canonical": "#6c757d",
+        "oklch": "oklch(55.8% 0.016 244.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 244.9)",
+          "oklch(26.0% 0.012 244.9)",
+          "oklch(38.0% 0.015 244.9)",
+          "oklch(49.0% 0.016 244.9)",
+          "oklch(61.0% 0.016 244.9)",
+          "oklch(72.0% 0.013 244.9)",
+          "oklch(84.0% 0.009 244.9)",
+          "oklch(95.0% 0.003 244.9)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "#dee2e6",
+        "oklch": "oklch(91.1% 0.007 247.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 247.9)",
+          "oklch(26.0% 0.005 247.9)",
+          "oklch(38.0% 0.007 247.9)",
+          "oklch(49.0% 0.007 247.9)",
+          "oklch(61.0% 0.007 247.9)",
+          "oklch(72.0% 0.006 247.9)",
+          "oklch(84.0% 0.004 247.9)",
+          "oklch(95.0% 0.001 247.9)"
+        ]
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "Border (dark theme)",
+        "canonical": "#495057",
+        "oklch": "oklch(42.8% 0.015 248.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.007 248.2)",
+          "oklch(26.0% 0.011 248.2)",
+          "oklch(38.0% 0.014 248.2)",
+          "oklch(49.0% 0.015 248.2)",
+          "oklch(61.0% 0.014 248.2)",
+          "oklch(72.0% 0.012 248.2)",
+          "oklch(84.0% 0.008 248.2)",
+          "oklch(95.0% 0.003 248.2)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(0, 0, 0, 0.175)",
+        "note": "Translucent; composites over the surface beneath it."
+      },
+      "hairline-dark": {
+        "role": "neutral",
+        "displayName": "Hairline (dark theme)",
+        "canonical": "rgba(255, 255, 255, 0.15)",
+        "note": "Translucent; composites over the surface beneath it."
+      }
+    },
+    "typographyMeta": {
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "The 'Researcher' name in the navbar, beside the brand mark."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The task panel's question; the only headline on the page."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Agent names on step cards; 500 weight for card headings and roster names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Controls, inputs and general UI text."
+      },
+      "prose": {
+        "displayName": "Prose",
+        "purpose": "Rendered Markdown in step cards and the final answer."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Form help, status bar, graph-detail text, graph-node names (600)."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Step metadata, routing notes, execution-path chips, graph-detail metadata."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase section labels in Ink Muted."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code blocks; inline code at 0.875em; the run timer at 0.875rem."
+      },
+      "mono-caption": {
+        "displayName": "Mono Caption",
+        "purpose": "Model names under roster entries, in the agent's crew colour."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -8px rgb(15 23 42 / 0.12)",
+        "purpose": "Top-level cards on the light Canvas (task panel, workflow graph, step cards, final answer)."
+      },
+      {
+        "name": "card-lift-dark",
+        "value": "0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -8px rgb(0 0 0 / 0.6)",
+        "purpose": "The same cards in the dark theme."
+      },
+      {
+        "name": "key-cap",
+        "value": "inset 0 -1px 0 var(--bs-border-color)",
+        "purpose": "kbd keyboard hints: a pressed-key base line."
+      },
+      {
+        "name": "live-pulse",
+        "value": "0 0 0 0 → 0 0 0 6px color-mix(in srgb, var(--agent) 45%, transparent)",
+        "purpose": "Animated ring on the working agent's avatar and the Live pill's dot. State only."
+      },
+      {
+        "name": "selection-ring",
+        "value": "0 0 0 2px color-mix(in srgb, var(--agent) 40%, transparent)",
+        "purpose": "A graph node the user has pinned. State only."
+      },
+      {
+        "name": "timeline-halo",
+        "value": "0 0 0 3px var(--app-bg)",
+        "purpose": "Gap around timeline dots so the rail passes behind them."
+      }
+    ],
+    "motion": [
+      {
+        "name": "step-in",
+        "value": "0.3s–0.35s ease-out; from opacity 0, translateY(6px)",
+        "purpose": "Entrance for new roster items, timeline steps, graph nodes and execution-path chips."
+      },
+      {
+        "name": "pulse",
+        "value": "1.6s ease-in-out infinite",
+        "purpose": "Live state: working avatars and the Live dot."
+      },
+      {
+        "name": "edge-flow",
+        "value": "0.7s linear infinite; stroke-dashoffset 0 → -11 on a 6 5 dash",
+        "purpose": "Dashes flowing along the edge into the working graph node."
+      },
+      {
+        "name": "flash",
+        "value": "1.6s ease-out; outline-color agent → transparent",
+        "purpose": "Highlights a step card opened from the workflow graph."
+      },
+      {
+        "name": "state-transition",
+        "value": "0.2s ease (border-color, background-color, box-shadow, opacity)",
+        "purpose": "Hover and state changes on tiles, nodes and chips."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce → durations 0.01ms, one iteration",
+        "purpose": "All animation collapses to an instant change."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "576px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "992px"
+      },
+      {
+        "name": "xl",
+        "value": "1200px"
+      },
+      {
+        "name": "xxl",
+        "value": "1400px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Launch Button",
+      "kind": "button",
+      "refersTo": "button-launch",
+      "description": "The one Launch Blue action: starts a run. Spinner and 'Running…' while busy.",
+      "html": "<button class=\"ds-btn-launch\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393\"/></svg>Run workflow</button>",
+      "css": ".ds-btn-launch{display:inline-flex;align-items:center;justify-content:center;gap:.375rem;padding:.375rem .75rem;font:400 1rem/1.5 system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:#fff;background:var(--bs-primary,#0d6efd);border:1px solid var(--bs-primary,#0d6efd);border-radius:.375rem;cursor:pointer;transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out}.ds-btn-launch:hover{background:#0b5ed7;border-color:#0a58ca}.ds-btn-launch:active{background:#0a58ca;border-color:#0a53be}.ds-btn-launch:focus-visible{outline:0;box-shadow:0 0 0 .25rem rgba(49,132,253,.5)}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Quiet Action Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Small secondary action in Ink with a Border stroke; the icon and hover border take the agent's colour.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z\"/></svg>Read full contribution</button>",
+      "css": ".ds-btn-quiet{--agent:var(--agent-1,#0e7490);display:inline-flex;align-items:center;gap:.375rem;padding:.25rem .5rem;font:400 .875rem/1.5 system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);background:transparent;border:1px solid var(--bs-border-color,#dee2e6);border-radius:.25rem;cursor:pointer;transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out}.ds-btn-quiet .ds-icon{color:var(--agent)}.ds-btn-quiet:hover{background:var(--bs-tertiary-bg,#f8f9fa);border-color:var(--agent)}.ds-btn-quiet:active{background:var(--bs-secondary-bg,#e9ecef);border-color:var(--agent)}.ds-btn-quiet:focus-visible{outline:0;box-shadow:0 0 0 .25rem rgba(108,117,125,.5)}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Task Field",
+      "kind": "input",
+      "refersTo": "input-task",
+      "description": "The task panel's headline question over a vertically resizable textarea.",
+      "html": "<label class=\"ds-task\"><span class=\"ds-task-title\">What should the team work on?</span><textarea class=\"ds-input-task\" rows=\"5\" placeholder=\"Describe the task in plain language…\"></textarea></label>",
+      "css": ".ds-task{display:flex;flex-direction:column;gap:.875rem;max-width:22rem;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529)}.ds-task-title{font-size:1.375rem;font-weight:600;line-height:1.25;letter-spacing:-.01em}.ds-input-task{min-height:9rem;padding:.375rem .75rem;font:400 1rem/1.5 system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);background:var(--bs-body-bg,#fff);border:1px solid var(--bs-border-color,#dee2e6);border-radius:.375rem;resize:vertical;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.ds-input-task::placeholder{color:var(--bs-secondary-color,rgba(33,37,41,.75))}.ds-input-task:hover{border-color:#adb5bd}.ds-input-task:focus-visible,.ds-input-task:focus{outline:0;border-color:#86b7fe;box-shadow:0 0 0 .25rem rgba(13,110,253,.25)}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "description": "Sticky translucent bar: gradient brand mark and wordmark; model badge and theme toggle.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-brand\"><span class=\"ds-brand-mark\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5zm-6 8A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5zm6 0A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5z\"/></svg></span>Researcher</span><span class=\"ds-nav-end\"><span class=\"ds-model-badge\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z\"/></svg>Model per role</span><button class=\"ds-icon-btn\" type=\"button\" aria-label=\"Switch to dark mode\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286\"/><path d=\"M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z\"/></svg></button></span></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.5rem;padding:0 1rem;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;background:color-mix(in srgb,var(--bs-body-bg,#fff) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--bs-border-color,#dee2e6)}.ds-brand{display:flex;align-items:center;gap:.5rem;font-size:1.25rem;font-weight:600;color:var(--bs-body-color,#212529)}.ds-brand-mark{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:.6rem;color:#fff;background:linear-gradient(135deg,var(--agent-0,#4f46e5),var(--agent-5,#7c3aed))}.ds-nav-end{display:flex;align-items:center;gap:.5rem}.ds-model-badge{display:inline-flex;align-items:center;gap:.25rem;padding:.4em .75em;font-size:.75rem;font-weight:500;line-height:1;color:var(--bs-secondary-color,rgba(33,37,41,.75));background:var(--bs-tertiary-bg,#f8f9fa);border:1px solid var(--bs-border-color-translucent,rgba(0,0,0,.175));border-radius:.375rem}.ds-icon-btn{display:inline-flex;padding:.25rem .5rem;font-size:.875rem;line-height:1.5;color:#6c757d;background:transparent;border:1px solid #6c757d;border-radius:.25rem;cursor:pointer;transition:color .15s ease-in-out,background-color .15s ease-in-out,box-shadow .15s ease-in-out}.ds-icon-btn:hover{color:#fff;background:#6c757d}.ds-icon-btn:focus-visible{outline:0;box-shadow:0 0 0 .25rem rgba(108,117,125,.5)}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Execution Path Chips",
+      "kind": "chip",
+      "refersTo": "chip-step",
+      "description": "Every step of a run in order: a supervisor decision, a finished agent step, and the live step.",
+      "html": "<ol class=\"ds-trail\"><li><button class=\"ds-chip\" style=\"--agent:var(--agent-supervisor,#475569)\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z\"/></svg><span>To Coder</span><span class=\"ds-chip-time\">1.0s</span></button></li><li><button class=\"ds-chip\" style=\"--agent:var(--agent-0,#4f46e5)\" type=\"button\" aria-pressed=\"true\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0\"/></svg><span>Planner</span><span class=\"ds-chip-time\">2.6s</span></button></li><li><button class=\"ds-chip is-active\" style=\"--agent:var(--agent-1,#0e7490)\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0\"/></svg><span>Coder</span><span class=\"ds-chip-time\">0:07</span></button></li></ol>",
+      "css": ".ds-trail{display:flex;flex-wrap:wrap;align-items:center;row-gap:.375rem;margin:0;padding:0;list-style:none;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif}.ds-trail>li{display:flex;align-items:center}.ds-trail>li+li::before{width:calc(.875rem - 6px);height:1px;margin:0 3px;content:'';background:var(--bs-border-color,#dee2e6)}.ds-chip{display:inline-flex;align-items:center;gap:.375rem;padding:.25rem .625rem;font:400 .8125rem/1.5 system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);background:var(--bs-body-bg,#fff);border:1px solid var(--bs-border-color-translucent,rgba(0,0,0,.175));border-radius:999px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease}.ds-chip .ds-icon{color:var(--agent)}.ds-chip-time{font-size:.75rem;color:var(--bs-secondary-color,rgba(33,37,41,.75));font-variant-numeric:tabular-nums}.ds-chip:hover{border-color:var(--agent)}.ds-chip:active{background:color-mix(in srgb,var(--agent) 14%,var(--bs-body-bg,#fff))}.ds-chip:focus-visible{outline:2px solid var(--agent);outline-offset:1px}.ds-chip.is-active{font-weight:600;border-color:var(--agent);background:color-mix(in srgb,var(--agent) 8%,var(--bs-body-bg,#fff))}.ds-chip[aria-pressed=true]{border-color:var(--agent);box-shadow:inset 0 0 0 1px var(--agent)}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Step Card",
+      "kind": "card",
+      "refersTo": "card-step",
+      "description": "One agent contribution: avatar, name, step and model, the supervisor's routing note, then Markdown.",
+      "html": "<article class=\"ds-step\" style=\"--agent:var(--agent-1,#0e7490)\"><header class=\"ds-step-head\"><span class=\"ds-avatar\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0\"/></svg></span><span class=\"ds-step-heading\"><h3 class=\"ds-step-agent\">Coder</h3><span class=\"ds-step-meta\">Step 2 · openai/gpt-oss-120b</span></span><button class=\"ds-toggle\" type=\"button\" aria-label=\"Collapse step 2, Coder\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z\"/></svg></button></header><div class=\"ds-step-body\"><p class=\"ds-note\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7zm1 3V8H2l-.75 1L2 10zm0-5h6l.75-1L14 3H8z\"/></svg><span>Supervisor: The plan is ready, so the Coder writes the function.</span></p><p class=\"ds-prose\">Use <strong>memoization</strong> with <code>functools.lru_cache</code> so each value is computed once.</p></div></article>",
+      "css": ".ds-step{max-width:34rem;overflow:hidden;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);background:var(--bs-body-bg,#fff);border:1px solid var(--bs-border-color-translucent,rgba(0,0,0,.175));border-radius:.875rem;box-shadow:var(--app-shadow,0 1px 2px rgb(15 23 42 / .04),0 4px 16px -8px rgb(15 23 42 / .12))}.ds-step-head{display:flex;align-items:center;gap:.75rem;padding:.5rem 1rem;border-bottom:1px solid var(--bs-border-color-translucent,rgba(0,0,0,.175))}.ds-step-heading{display:flex;flex:1 1 auto;flex-direction:column;min-width:0}.ds-step-agent{margin:0;font-size:1rem;font-weight:600;line-height:1.2}.ds-step-meta{font-size:.8125rem;color:var(--bs-secondary-color,rgba(33,37,41,.75))}.ds-toggle{display:inline-flex;padding:.25rem .5rem;color:var(--bs-secondary-color,rgba(33,37,41,.75));background:transparent;border:0;border-radius:.25rem;cursor:pointer}.ds-toggle:hover,.ds-toggle:focus-visible{color:var(--bs-body-color,#212529);background:var(--bs-tertiary-bg,#f8f9fa)}.ds-toggle:focus-visible{outline:0;box-shadow:0 0 0 .25rem rgba(108,117,125,.5)}.ds-step-body{padding:1rem}.ds-note{display:flex;gap:.5rem;margin:0 0 .875rem;padding:.5rem .75rem;font-size:.8125rem;line-height:1.5;color:var(--bs-secondary-color,rgba(33,37,41,.75));background:var(--bs-tertiary-bg,#f8f9fa);border-radius:.5rem}.ds-note .ds-icon{margin-top:.2em}.ds-prose{margin:0;font-size:1rem;line-height:1.65}.ds-prose code{padding:.1em .35em;font:.875em SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace;background:var(--bs-secondary-bg,#e9ecef);border-radius:.3rem}.ds-avatar{display:inline-flex;flex:none;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:.6rem;color:var(--agent);background:color-mix(in srgb,var(--agent) 14%,transparent)}.ds-avatar .ds-icon{width:1rem;height:1rem}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Roster Item",
+      "kind": "custom",
+      "refersTo": "tile-roster",
+      "description": "A team member in the left panel, shown while working: crew-coloured border, tint and pulsing avatar.",
+      "html": "<div class=\"ds-roster is-active\" style=\"--agent:var(--agent-0,#4f46e5)\"><span class=\"ds-avatar\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0\"/></svg></span><span class=\"ds-roster-text\"><span class=\"ds-roster-name\">Planner</span><span class=\"ds-roster-role\">Break the task into ordered steps.</span><span class=\"ds-roster-model\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z\"/></svg>planning · llama-3.3-70b-versatile</span></span><span class=\"ds-roster-status\">Working…</span></div>",
+      "css": ".ds-roster{display:flex;align-items:center;gap:.625rem;max-width:22rem;padding:.5rem .625rem;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);border:1px solid var(--bs-border-color-translucent,rgba(0,0,0,.175));border-radius:.75rem;transition:border-color .2s ease,background-color .2s ease}.ds-roster-text{display:flex;flex:1 1 auto;flex-direction:column;min-width:0}.ds-roster-name{font-weight:500;line-height:1.5}.ds-roster-role{font-size:.75rem;line-height:1.35;color:var(--bs-secondary-color,rgba(33,37,41,.75))}.ds-roster-model{display:inline-flex;align-items:center;gap:.3rem;margin-top:.125rem;font:400 .6875rem/1.5 SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace;color:var(--agent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-roster-status{flex:none;font-size:.8125rem;color:var(--bs-secondary-color,rgba(33,37,41,.75))}.ds-roster.is-active{border-color:var(--agent);background:color-mix(in srgb,var(--agent) 8%,transparent)}.ds-roster.is-active .ds-roster-status{font-weight:600;color:var(--agent)}.ds-roster.is-active .ds-avatar{animation:ds-pulse 1.6s ease-in-out infinite}.ds-avatar{display:inline-flex;flex:none;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:.6rem;color:var(--agent);background:color-mix(in srgb,var(--agent) 14%,transparent)}.ds-avatar .ds-icon{width:1rem;height:1rem}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}@keyframes ds-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--agent) 45%,transparent)}50%{box-shadow:0 0 0 6px transparent}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}"
+    },
+    {
+      "name": "Workflow Graph Nodes",
+      "kind": "custom",
+      "refersTo": "graph-node",
+      "description": "Graph node states: done (45% crew border), working (crew border, tint, pulse), not yet (dashed).",
+      "html": "<div class=\"ds-nodes\"><button class=\"ds-node is-done\" style=\"--agent:var(--agent-0,#4f46e5)\" type=\"button\"><span class=\"ds-avatar\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path fill-rule=\"evenodd\" d=\"M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0\"/></svg></span><span class=\"ds-node-name\">Planner</span><span class=\"ds-node-meta\">1 reply</span></button><button class=\"ds-node is-active\" style=\"--agent:var(--agent-1,#0e7490)\" type=\"button\"><span class=\"ds-avatar\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0\"/></svg></span><span class=\"ds-node-name\">Coder</span><span class=\"ds-node-meta\">Working…</span></button><button class=\"ds-node is-pending\" style=\"--agent:var(--agent-answer,#198754)\" type=\"button\"><span class=\"ds-avatar\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z\"/></svg></span><span class=\"ds-node-name\">Answer</span><span class=\"ds-node-meta\">Waiting</span></button></div>",
+      "css": ".ds-nodes{display:grid;grid-template-columns:repeat(3,8rem);gap:1.75rem;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif}.ds-node{display:flex;flex-direction:column;align-items:center;gap:.25rem;min-width:0;padding:.625rem .5rem;font:inherit;color:var(--bs-body-color,#212529);text-align:center;background:var(--bs-body-bg,#fff);border:1px solid var(--bs-border-color,#dee2e6);border-radius:.75rem;cursor:pointer;transition:border-color .2s ease,background-color .2s ease,box-shadow .2s ease}.ds-node:hover{border-color:var(--agent)}.ds-node:focus-visible{outline:2px solid var(--agent);outline-offset:2px}.ds-node-name{font-size:.875rem;font-weight:600;line-height:1.25}.ds-node-meta{font-size:.75rem;color:var(--bs-secondary-color,rgba(33,37,41,.75));font-variant-numeric:tabular-nums}.ds-node.is-done{border-color:color-mix(in srgb,var(--agent) 45%,var(--bs-border-color,#dee2e6))}.ds-node.is-active{border-color:var(--agent);background:color-mix(in srgb,var(--agent) 8%,var(--bs-body-bg,#fff))}.ds-node.is-active .ds-avatar{animation:ds-pulse 1.6s ease-in-out infinite}.ds-node.is-active .ds-node-meta{font-weight:600;color:var(--agent)}.ds-node.is-pending{border-style:dashed}.ds-node.is-pending .ds-avatar{opacity:.6}.ds-avatar{display:inline-flex;flex:none;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:.6rem;color:var(--agent);background:color-mix(in srgb,var(--agent) 14%,transparent)}.ds-avatar .ds-icon{width:1rem;height:1rem}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}@keyframes ds-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--agent) 45%,transparent)}50%{box-shadow:0 0 0 6px transparent}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}"
+    },
+    {
+      "name": "Final Answer Card",
+      "kind": "card",
+      "refersTo": "card-answer-header",
+      "description": "The run's end point: 2px Answer Green border, washed header, model in monospace, Copy action.",
+      "html": "<section class=\"ds-answer\"><header class=\"ds-answer-head\"><h2 class=\"ds-answer-title\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z\"/></svg>Final answer<span class=\"ds-answer-model\">· openai/gpt-oss-120b</span></h2><button class=\"ds-btn-copy\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z\"/><path d=\"M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z\"/></svg>Copy</button></header><div class=\"ds-answer-body\"><p>Use <strong>memoization</strong> so each Fibonacci value is computed once; the function then runs in O(n) time.</p></div></section>",
+      "css": ".ds-answer{max-width:34rem;overflow:hidden;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:var(--bs-body-color,#212529);background:var(--bs-body-bg,#fff);border:2px solid var(--bs-success-border-subtle,#a3cfbb);border-radius:.875rem;box-shadow:var(--app-shadow,0 1px 2px rgb(15 23 42 / .04),0 4px 16px -8px rgb(15 23 42 / .12))}.ds-answer-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.5rem 1rem;color:var(--bs-success-text-emphasis,#0a3622);background:var(--bs-success-bg-subtle,#d1e7dd);border-bottom:1px solid var(--bs-success-border-subtle,#a3cfbb)}.ds-answer-title{display:flex;align-items:center;gap:.5rem;margin:0;font-size:1rem;font-weight:500;line-height:1.2}.ds-answer-model{font:400 .75rem SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace;opacity:.8}.ds-btn-copy{display:inline-flex;align-items:center;gap:.375rem;padding:.25rem .5rem;font:400 .875rem/1.5 system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif;color:#fff;background:#198754;border:1px solid #198754;border-radius:.25rem;cursor:pointer;transition:background-color .15s ease-in-out,box-shadow .15s ease-in-out}.ds-btn-copy:hover{background:#157347;border-color:#146c43}.ds-btn-copy:focus-visible{outline:0;box-shadow:0 0 0 .25rem rgba(60,153,110,.5)}.ds-answer-body{padding:1rem;line-height:1.65}.ds-answer-body p{margin:0}.ds-icon{width:1em;height:1em;flex:none;fill:currentColor}"
+    },
+    {
+      "name": "Run State Pills",
+      "kind": "chip",
+      "refersTo": "pill-state-live",
+      "description": "The workflow graph's run state: Live (pulsing Crew Indigo dot) and Completed (Answer Green wash).",
+      "html": "<div class=\"ds-pills\"><span class=\"ds-state is-live\">Live</span><span class=\"ds-state is-done\">Completed</span><span class=\"ds-state is-failed\">Failed</span></div>",
+      "css": ".ds-pills{display:flex;gap:.5rem;font-family:system-ui,-apple-system,\"Segoe UI\",Roboto,\"Helvetica Neue\",\"Noto Sans\",\"Liberation Sans\",Arial,sans-serif}.ds-state{display:inline-flex;align-items:center;gap:.4rem;padding:.2em .65em;font-size:.75rem;font-weight:600;line-height:1.5;color:var(--bs-secondary-color,rgba(33,37,41,.75));background:var(--bs-tertiary-bg,#f8f9fa);border-radius:999px}.ds-state::before{width:.5rem;height:.5rem;content:'';background:currentColor;border-radius:50%}.ds-state.is-live{--agent:var(--agent-0,#4f46e5);color:var(--agent)}.ds-state.is-live::before{animation:ds-pulse 1.6s ease-in-out infinite}.ds-state.is-done{color:var(--bs-success-text-emphasis,#0a3622);background:var(--bs-success-bg-subtle,#d1e7dd)}.ds-state.is-failed{color:var(--bs-danger-text-emphasis,#58151c);background:var(--bs-danger-bg-subtle,#f8d7da)}@keyframes ds-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--agent) 45%,transparent)}50%{box-shadow:0 0 0 6px transparent}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Glass-Box Console",
+    "overview": "Researcher is a calm operations console you can see straight through. Neutral white panels sit on a cool, faintly blue canvas, and colour is spent almost entirely on identity: each agent gets a crew colour when the team is designed, and that colour follows it from the roster to its avatar, its graph node and edges, its steps on the execution path, its timeline dot and its contribution card. You always know who did what, where the work is now, and what is still to come.\n\nThe console stays calm and restrained while a run takes a minute or more. It is precise and technical where precision helps: model names in monospace, counts and durations in tabular numerals, exact labels for every state. It is friendly through gently rounded corners, soft tints and plain-language copy. Above all it is transparent: every state (waiting, working, done, not called, failed, stopped) has a visible form made of words, icons and border style, never colour alone.\n\nIt is not a chatbot, so runs are never rendered as message bubbles or typing dots. It rejects neon \"AI\" styling: no glowing gradient washes, glowing borders or sparkle effects. It is not grey enterprise admin, so agents never lose their colour identity. And it is not playful: no mascots, emoji or bouncy motion.",
+    "keyCharacteristics": [
+      "Neutral surfaces, with colour reserved for agent identity, the one launch action and the final answer.",
+      "Every agent's crew colour is consistent across every view of the run.",
+      "State is legible without colour: words, icons, dashed versus solid borders.",
+      "Soft lift for top-level cards only; everything inside them is flat and bordered.",
+      "The platform's own UI typeface, monospace only for machine identifiers and code.",
+      "Light and dark themes are equal partners; every colour has a pair."
+    ],
+    "rules": [
+      {
+        "name": "The Crew Identity Rule",
+        "body": "An agent's crew colour is assigned once, by team order, and follows that agent into every view that shows it. A crew colour never decorates anything that is not that agent.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Launch Rule",
+        "body": "Launch Blue fills exactly one thing on screen: the action that starts a run. Nothing else is blue-filled.",
+        "section": "colors"
+      },
+      {
+        "name": "The Answer Is Green Rule",
+        "body": "Answer Green means \"the result\" or \"completed\", nothing else. Crew Green sits close in hue, so the answer is also always distinguished by structure: a 2px border, a tinted header and the \"Final answer\" label.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paired Theme Rule",
+        "body": "Every colour exists as a light and dark pair, defined on `:root` and under `[data-bs-theme=\"dark\"]`. A colour defined for one theme only does not ship.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured Mono Rule",
+        "body": "Monospace is only for things that are literally machine text: model names, code and the run timer. It never sets headings, labels or decoration.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Time Rule",
+        "body": "Every count, duration and live clock uses tabular numerals, so values that change every second never shift the layout.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Lift Rule",
+        "body": "Only top-level cards cast a shadow. Anything nested inside a card is flat and separated by borders and tints.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Ring Means State Rule",
+        "body": "A coloured zero-offset ring appears only to show live or selected state, never as decoration.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Dashed Means Not-Yet Rule",
+        "body": "Dashed outlines mark what is pending, unused or empty; solid outlines mark what exists. A finished element is never dashed.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** give every agent its crew colour by team order, and carry that colour into every view that shows the agent: roster, avatar, graph node and edges, execution path, timeline dot and step card.",
+      "**Do** show state with a word, an icon or a border style as well as colour. \"Working…\", \"Not called\" and \"Failed\" must read correctly in greyscale.",
+      "**Do** keep Launch Blue to the action that starts a run and the controls that configure it.",
+      "**Do** lift only top-level cards with the card shadow (`0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -8px rgb(15 23 42 / 0.12)`), and keep everything inside them flat and bordered.",
+      "**Do** define every new colour as a light/dark pair, and check 4.5:1 text contrast in both themes.",
+      "**Do** step corner radii down with nesting: card 0.875rem, tile 0.75rem, control 0.375rem.",
+      "**Do** use tabular numerals for counts, durations and clocks, and monospace only for model names, code and the run timer.",
+      "**Do** use Bootstrap Icons, the one icon family already pinned, for every icon.",
+      "**Do** use Ink text with a Border stroke for quiet buttons on dark surfaces. Bootstrap's outline-secondary grey falls to about 3:1 on the dark card (the Clear and theme-toggle buttons still use it)."
+    ],
+    "donts": [
+      "**Don't** render a run as chat bubbles or typing indicators. A run is a structured view of a team, its steps and an answer.",
+      "**Don't** use neon \"AI\" styling: glowing gradient washes, glowing borders or sparkle effects. The small brand mark is the only gradient.",
+      "**Don't** drift into grey enterprise admin: never strip agents of their crew colours or flatten a run into uniform grey tables.",
+      "**Don't** add mascots, emoji or bouncy animation.",
+      "**Don't** use a crew colour for anything that isn't that agent, or Answer Green for anything other than the answer and a completed run.",
+      "**Don't** use dashed borders on finished elements, or solid borders on pending ones.",
+      "**Don't** put Unicode arrows or symbols where an icon belongs. Draw them from Bootstrap Icons.",
+      "**Don't** load a web font or any new third-party file unless it is pinned with an integrity hash in `CDN_STYLES` / `CDN_SCRIPTS` in `app.py`."
+    ]
+  }
+}
