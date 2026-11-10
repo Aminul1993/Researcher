@@ -45,6 +45,15 @@ def test_index_renders(client):
     assert b"What should the team work on?" in response.data
 
 
+def test_index_includes_the_workflow_graph(client):
+    page = client.get("/").get_data(as_text=True)
+
+    assert 'id="graph-section"' in page
+    # graph.js defines the graph that app.js drives, so it loads first.
+    assert page.index("js/graph.js") < page.index("js/app.js")
+    assert client.get("/static/js/graph.js").status_code == 200
+
+
 def test_security_headers_are_set(client):
     headers = client.get("/").headers
 

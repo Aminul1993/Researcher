@@ -4,6 +4,7 @@
  * Sends the task to the Flask API — either the blocking /api/run endpoint or
  * the /api/stream Server-Sent Events endpoint — and renders each agent's
  * contribution as a card in chronological order, followed by the final answer.
+ * The workflow graph (graph.js) follows the same events.
  *
  * This file is loaded in <head> so the saved theme applies before first paint;
  * everything else waits for DOMContentLoaded.
@@ -109,12 +110,13 @@
 
   let els = null;
   let api = null;
+  let graph = null;
 
   /* ------------------------------------------------------------------ */
   /* Small utilities                                                     */
   /* ------------------------------------------------------------------ */
-  function plural(count, word) {
-    return `${count} ${word}${count === 1 ? '' : 's'}`;
+  function plural(count, word, many = `${word}s`) {
+    return `${count} ${count === 1 ? word : many}`;
   }
 
   function formatElapsed(ms) {
@@ -211,7 +213,7 @@
 
   function contributionLabel(agent) {
     const count = state.agentCounts.get(agent) || 0;
-    return plural(count, 'reply');
+    return plural(count, 'reply', 'replies');
   }
 
   /** Clear in-progress statuses such as "Working…" or "Waiting", keeping reply counts. */
@@ -334,6 +336,7 @@
     const { colorClass, icon } = agentInfo(step.agent);
     const bodyId = `step-body-${step.step}`;
 
+    item.id = `step-${step.step}`;
     item.classList.add(colorClass);
     item.querySelector('.agent-avatar i').classList.add(icon);
     item.querySelector('.step-agent').textContent = step.agent;
@@ -368,6 +371,37 @@
     els.stepCount.textContent = plural(state.stepCount, 'step');
     state.agentCounts.set(step.agent, (state.agentCounts.get(step.agent) || 0) + 1);
     setRosterStatus(step.agent, 'done', contributionLabel(step.agent));
+  }
+
+  function setStepCollapsed(card, collapsed) {
+    card.classList.toggle('is-collapsed', collapsed);
+    const button = card.querySelector('.step-toggle');
+    button.setAttribute('aria-expanded', String(!collapsed));
+    button.setAttribute(
+      'aria-label',
+      `${collapsed ? 'Expand' : 'Collapse'} ${button.dataset.stepName}`
+    );
+    button.querySelector('i').className = collapsed
+      ? 'bi bi-chevron-down'
+      : 'bi bi-chevron-up';
+  }
+
+  /** Move to a section the graph points at, so keyboard focus follows. */
+  function reveal(element) {
+    element.focus({ preventScroll: true });
+    scrollToElement(element);
+  }
+
+  /** Expand a step's card, bring it into view and briefly highlight it. */
+  function openStep(number) {
+    const item = document.getElementById(`step-${number}`);
+    if (!item) return;
+    const card = item.querySelector('.step-card');
+    setStepCollapsed(card, false);
+    reveal(card);
+    item.classList.remove('is-flash');
+    void item.offsetWidth; // Restart the highlight if it is still playing.
+    item.classList.add('is-flash');
   }
 
   function showFinal(text, model) {
@@ -418,6 +452,7 @@
     state.stepCount = 0;
     state.agentCounts.clear();
     resetRoster();
+    graph.clear();
   }
 
   function hasResults() {
@@ -483,6 +518,7 @@
       models: data.models,
     });
     (data.steps || []).forEach(addStep);
+    graph.replay(task, data);
     showFinal(data.final_response);
   }
 
@@ -521,27 +557,33 @@
   function handleStreamEvent(type, data) {
     switch (type) {
       case 'start':
+        graph.begin(data.task);
         setRosterStatus(SUPERVISOR, 'active', 'Designing…');
         setWorking(SUPERVISOR, 'Designing a team of agents for this task…');
         setStatus('Supervisor is designing a team for the task…');
         return false;
       case 'team':
-        onTeam(data);
+        onTeam(data); // Builds the roster, whose colours the graph reuses.
+        graph.team(data);
         setRosterStatus(SUPERVISOR, 'active', 'Routing…');
         setWorking(SUPERVISOR, 'Supervisor is choosing the first agent…');
         return false;
       case 'routing':
         onRouting(data);
+        graph.routing(data);
         return false;
       case 'step':
         addStep(data);
+        graph.step(data);
         setRosterStatus(SUPERVISOR, 'active', 'Routing…');
         setWorking(SUPERVISOR, 'Supervisor is choosing the next agent…');
         return false;
       case 'final':
+        graph.final(data);
         showFinal(data.message, data.model);
         return false;
       case 'done':
+        graph.complete();
         return true;
       case 'error':
         throw new Error(data.error || 'The workflow failed.');
@@ -603,15 +645,17 @@
     } catch (err) {
       settleRoster();
       if (err && err.name === 'AbortError') {
+        graph.stop();
         setStatus('Run stopped.');
       } else {
         const message =
           err && err.message ? err.message : 'Something went wrong. Please try again.';
-        showError(
+        const shown =
           err instanceof TypeError
             ? 'Could not reach the server. Check that it is running and try again.'
-            : message
-        );
+            : message;
+        graph.fail(shown);
+        showError(shown);
         setStatus('Run failed.');
       }
     } finally {
@@ -711,15 +755,7 @@
     const button = event.target.closest('.step-toggle');
     if (!button) return;
     const card = button.closest('.step-card');
-    const collapsed = card.classList.toggle('is-collapsed');
-    button.setAttribute('aria-expanded', String(!collapsed));
-    button.setAttribute(
-      'aria-label',
-      `${collapsed ? 'Expand' : 'Collapse'} ${button.dataset.stepName}`
-    );
-    button.querySelector('i').className = collapsed
-      ? 'bi bi-chevron-down'
-      : 'bi bi-chevron-up';
+    setStepCollapsed(card, !card.classList.contains('is-collapsed'));
   }
 
   function bindEvents() {
@@ -797,6 +833,11 @@
       run: document.body.dataset.runUrl,
       stream: document.body.dataset.streamUrl,
     };
+    graph = window.WorkflowGraph.create(byId('graph-section'), {
+      agentStyle: agentInfo,
+      onOpenStep: openStep,
+      onOpenFinal: () => reveal(els.finalSection),
+    });
 
     setupMarkdown();
     applyTheme(currentTheme()); // Sync the toggle button now that it exists.

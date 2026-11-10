@@ -27,7 +27,9 @@
         crossorigin="anonymous" disabled>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-  {# Loaded in <head> so the saved theme is applied before first paint. #}
+  {# Loaded in <head> so the saved theme is applied before first paint.
+     graph.js defines the workflow graph that app.js drives. #}
+  <script src="{{ url_for('static', filename='js/graph.js') }}"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   <script defer src="{{ cdn_scripts.marked.url }}"
           integrity="{{ cdn_scripts.marked.integrity }}"
@@ -165,6 +167,31 @@
         </p>
       </section>
 
+      {# Filled by static/js/graph.js as the run streams in. #}
+      <section id="graph-section" class="card graph-card d-none" aria-labelledby="graph-heading">
+        <header class="card-header graph-header">
+          <h2 id="graph-heading" class="section-label mb-0">Workflow graph</h2>
+          <span class="graph-state"></span>
+          <button type="button" class="btn btn-sm step-toggle graph-toggle"
+                  aria-expanded="true" aria-controls="graph-body" aria-label="Collapse workflow graph">
+            <i class="bi bi-chevron-up" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div id="graph-body" class="card-body graph-body">
+          {# Scrolls sideways on narrow screens rather than squeezing the nodes. #}
+          <div class="graph-scroll">
+            <div class="graph-canvas" role="group" aria-label="Workflow graph nodes">
+              <svg class="graph-edges" aria-hidden="true" focusable="false"></svg>
+              <div class="graph-row graph-row-main"></div>
+              <div class="graph-row graph-row-agents"></div>
+            </div>
+          </div>
+          <h3 id="graph-trail-heading" class="section-label graph-subheading">Execution path</h3>
+          <ol class="graph-trail" aria-labelledby="graph-trail-heading"></ol>
+          <div class="graph-detail"></div>
+        </div>
+      </section>
+
       <section id="steps-section" class="d-none" aria-labelledby="steps-heading">
         <div class="d-flex align-items-center justify-content-between mb-3">
           <h2 id="steps-heading" class="section-label mb-0">Agent contributions</h2>
@@ -179,7 +206,7 @@
         <span id="working-label">Working…</span>
       </div>
 
-      <section id="final-section" class="card final-card d-none" aria-labelledby="final-heading">
+      <section id="final-section" class="card final-card d-none" aria-labelledby="final-heading" tabindex="-1">
         <div class="card-header d-flex align-items-center justify-content-between gap-2">
           <h2 id="final-heading" class="h6 mb-0 d-flex align-items-center gap-2">
             <i class="bi bi-stars" aria-hidden="true"></i> Final answer
@@ -213,7 +240,7 @@
 
 <template id="step-template">
   <li class="timeline-item">
-    <article class="card step-card">
+    <article class="card step-card" tabindex="-1">
       <header class="card-header step-header">
         <span class="agent-avatar"><i class="bi" aria-hidden="true"></i></span>
         <div class="step-heading">

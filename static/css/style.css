@@ -13,6 +13,7 @@
   --agent-4: #be185d;
   --agent-5: #7c3aed;
   --agent-supervisor: #475569;
+  --agent-answer: #198754;
 }
 
 [data-bs-theme="dark"] {
@@ -26,6 +27,7 @@
   --agent-4: #f9a8d4;
   --agent-5: #c4b5fd;
   --agent-supervisor: #cbd5e1;
+  --agent-answer: #75b798;
 }
 
 .agent-color-0 { --agent: var(--agent-0); }
@@ -35,6 +37,7 @@
 .agent-color-4 { --agent: var(--agent-4); }
 .agent-color-5 { --agent: var(--agent-5); }
 .agent-supervisor { --agent: var(--agent-supervisor); }
+.graph-color-answer { --agent: var(--agent-answer); }
 
 body {
   min-height: 100vh;
@@ -436,6 +439,448 @@ body {
   border-radius: 0.5rem;
 }
 
+/* Opened from the workflow graph: clear the sticky navbar, then flash. */
+.timeline-item {
+  scroll-margin-top: calc(var(--app-navbar-height) + 1rem);
+}
+
+.step-card:focus,
+.final-card:focus {
+  outline: none;
+}
+
+.timeline-item.is-flash .step-card {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  animation: flash 1.6s ease-out;
+}
+
+@keyframes flash {
+  from { outline-color: var(--agent); }
+  to { outline-color: transparent; }
+}
+
+/* ---------- Workflow graph ---------- */
+.graph-card {
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-color: var(--bs-border-color-translucent);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+}
+
+.graph-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  border-bottom-color: var(--bs-border-color-translucent);
+}
+
+.graph-header .section-label {
+  flex: 1 1 auto;
+}
+
+.graph-card.is-collapsed .graph-body {
+  display: none;
+}
+
+.graph-card.is-collapsed .graph-header {
+  border-bottom: 0;
+}
+
+.graph-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2em 0.65em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-tertiary-bg);
+  border-radius: 999px;
+}
+
+.graph-state::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  content: "";
+  background-color: currentColor;
+  border-radius: 50%;
+}
+
+.graph-state.is-running {
+  --agent: var(--agent-0);
+  color: var(--agent);
+}
+
+.graph-state.is-running::before {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.graph-state.is-done {
+  color: var(--bs-success-text-emphasis);
+  background-color: var(--bs-success-bg-subtle);
+}
+
+.graph-state.is-failed {
+  color: var(--bs-danger-text-emphasis);
+  background-color: var(--bs-danger-bg-subtle);
+}
+
+/* The canvas keeps a minimum width so nodes stay legible; narrower screens
+   scroll it sideways instead of the page. */
+.graph-scroll {
+  margin: -0.25rem;
+  padding: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.graph-canvas {
+  position: relative;
+  display: grid;
+  row-gap: 4.25rem;
+  min-width: 34rem;
+}
+
+.graph-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.graph-row {
+  position: relative;
+}
+
+.graph-row-main {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: 1.75rem;
+}
+
+.graph-row-agents {
+  display: flex;
+  justify-content: center;
+  gap: 0.875rem;
+}
+
+.graph-row-agents > .graph-node {
+  flex: 0 1 9.5rem;
+}
+
+.graph-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0.625rem 0.5rem;
+  font: inherit;
+  color: var(--bs-body-color);
+  text-align: center;
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease, opacity 0.2s ease;
+  animation: step-in 0.3s ease-out both;
+}
+
+.graph-node:hover {
+  border-color: var(--agent);
+}
+
+.graph-node:focus-visible {
+  outline: 2px solid var(--agent);
+  outline-offset: 2px;
+}
+
+.graph-node-name {
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.graph-node-meta {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.graph-node.is-pending,
+.graph-node.is-skipped,
+.graph-node.is-stopped {
+  border-style: dashed;
+}
+
+.graph-node.is-pending .agent-avatar,
+.graph-node.is-skipped {
+  opacity: 0.6;
+}
+
+.graph-node.is-done {
+  border-color: color-mix(in srgb, var(--agent) 45%, var(--bs-border-color));
+}
+
+.graph-node.is-active {
+  border-color: var(--agent);
+  background-color: color-mix(in srgb, var(--agent) 8%, var(--bs-body-bg));
+}
+
+.graph-node.is-active .agent-avatar {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.graph-node.is-active .graph-node-meta {
+  font-weight: 600;
+  color: var(--agent);
+}
+
+.graph-node.is-error {
+  border-color: var(--bs-danger);
+}
+
+.graph-node.is-error .graph-node-meta {
+  color: var(--bs-danger-text-emphasis);
+}
+
+.graph-node.is-selected {
+  border-color: var(--agent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--agent) 40%, transparent);
+}
+
+.graph-placeholder {
+  display: flex;
+  flex: 0 1 24rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 5.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-body-bg);
+  border: 1px dashed var(--bs-border-color);
+  border-radius: 0.75rem;
+}
+
+/* Edges: dashed until used, solid once traversed, flowing while the node
+   they lead to is working. */
+.graph-edge-line {
+  fill: none;
+  stroke: var(--bs-border-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.graph-edge-head {
+  fill: var(--bs-border-color);
+}
+
+.graph-edge.is-traversed .graph-edge-line {
+  stroke: color-mix(in srgb, var(--agent) 55%, transparent);
+  stroke-dasharray: none;
+}
+
+.graph-edge.is-traversed .graph-edge-head {
+  fill: color-mix(in srgb, var(--agent) 55%, transparent);
+}
+
+.graph-edge.is-active .graph-edge-line {
+  stroke: var(--agent);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  animation: edge-flow 0.7s linear infinite;
+}
+
+.graph-edge.is-active .graph-edge-head {
+  fill: var(--agent);
+}
+
+@keyframes edge-flow {
+  to { stroke-dashoffset: -11; }
+}
+
+.graph-subheading {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.graph-trail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.graph-trail > li {
+  display: flex;
+  align-items: center;
+  animation: step-in 0.3s ease-out both;
+}
+
+/* A short connector between consecutive steps. */
+.graph-trail > li + li::before {
+  width: 0.625rem;
+  height: 1px;
+  content: "";
+  background-color: var(--bs-border-color);
+}
+
+.trail-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  max-width: 14rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.8125rem;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color-translucent);
+  border-radius: 999px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.trail-step > .bi {
+  color: var(--agent);
+}
+
+.trail-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trail-time {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.trail-time:empty {
+  display: none;
+}
+
+.trail-step:hover {
+  border-color: var(--agent);
+}
+
+.trail-step:focus-visible {
+  outline: 2px solid var(--agent);
+  outline-offset: 2px;
+}
+
+.trail-step.is-active {
+  font-weight: 600;
+  border-color: var(--agent);
+  background-color: color-mix(in srgb, var(--agent) 8%, var(--bs-body-bg));
+}
+
+.trail-step.is-error {
+  border-color: var(--bs-danger);
+}
+
+.trail-step.is-stopped {
+  border-style: dashed;
+}
+
+.trail-step[aria-pressed="true"] {
+  border-color: var(--agent);
+  box-shadow: inset 0 0 0 1px var(--agent);
+}
+
+.graph-detail {
+  margin-top: 1rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--bs-border-color-translucent);
+  border-radius: 0.75rem;
+}
+
+.graph-detail:empty {
+  display: none;
+}
+
+.graph-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.graph-detail-titles {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.graph-detail-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.graph-detail-meta {
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.graph-follow {
+  flex: none;
+  text-decoration: none;
+}
+
+.graph-detail-text {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.graph-detail-role {
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+}
+
+.graph-detail-error {
+  color: var(--bs-danger-text-emphasis);
+}
+
+.graph-detail-reason {
+  margin: 0.75rem 0 0;
+}
+
+.graph-detail-team {
+  margin: 0.375rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.graph-detail-actions {
+  margin-top: 0.75rem;
+}
+
 /* ---------- Working indicator ---------- */
 .working-indicator {
   display: flex;
@@ -580,6 +1025,7 @@ body {
   }
 
   .step-body,
+  .graph-body,
   .final-card .card-body {
     padding: 0.875rem;
   }

@@ -31,6 +31,7 @@ If Groq refuses a role's model (for example, `429 Too Many Requests` once that m
 
 - A new team of agents for every task, with each agent's model chosen by its skill
 - Live streaming over Server-Sent Events, or a single blocking request
+- A live workflow graph of the run: each node lights up while it works, the edges show where the supervisor sent the work, and the execution path lists every step in order with its duration. Select a step or a node to see the supervisor's reasoning, an agent's output, or where a run failed or was stopped
 - A timeline of agent contributions that shows the supervisor's routing reason for each step
 - Answers rendered as Markdown and sanitized with DOMPurify, with code highlighting
 - Stop, Clear and Copy buttons, <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run, and a light/dark theme
@@ -305,7 +306,9 @@ Researcher/
 │   └── index.html       # Single-page UI (Bootstrap 5)
 ├── static/
 │   ├── css/style.css
-│   └── js/app.js        # Streaming client, timeline, roster, theme toggle
+│   └── js/
+│       ├── app.js       # Streaming client, timeline, roster, theme toggle
+│       └── graph.js     # Live workflow graph, execution path and step details
 ├── tests/               # pytest suite; fakes.py holds the offline chat model
 ├── .github/workflows/   # CI: ruff, mypy, pytest with coverage, pip-audit
 ├── .env.example         # Every setting with its default; copy to .env
